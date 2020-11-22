@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--折れ線グラフ-->
         <scene sceneID="aNm-mX-dwt">
             <objects>
                 <viewController id="Yn8-pR-p9Q" customClass="LineGraphViewController" customModule="BenefitGraph" customModuleProvider="target" sceneMemberID="viewController">
@@ -36,7 +36,7 @@
                         <viewLayoutGuide key="safeArea" id="BWq-WB-QMn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="xMm-2F-ZZc"/>
+                    <tabBarItem key="tabBarItem" title="折れ線グラフ" image="chart.bar" catalog="system" id="xMm-2F-ZZc"/>
                     <connections>
                         <segue destination="l0z-9w-uXf" kind="show" identifier="add" id="F2h-KB-Ljq"/>
                     </connections>
@@ -45,7 +45,7 @@
             </objects>
             <point key="canvasLocation" x="45" y="501"/>
         </scene>
-        <!--Item-->
+        <!--円グラフ-->
         <scene sceneID="rES-Rs-4aq">
             <objects>
                 <viewController id="ki4-rz-Rkj" customClass="PieChartViewController" customModule="BenefitGraph" customModuleProvider="target" sceneMemberID="viewController">
@@ -73,7 +73,7 @@
                         <viewLayoutGuide key="safeArea" id="tpK-15-PVk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="rcz-hq-j9i"/>
+                    <tabBarItem key="tabBarItem" title="円グラフ" image="chart.pie" catalog="system" id="rcz-hq-j9i"/>
                     <connections>
                         <segue destination="l0z-9w-uXf" kind="show" identifier="add" id="ZZU-ho-bLV"/>
                     </connections>
@@ -198,7 +198,7 @@
             </objects>
             <point key="canvasLocation" x="829" y="1215"/>
         </scene>
-        <!--Item 1-->
+        <!--記録-->
         <scene sceneID="44u-xy-HEJ">
             <objects>
                 <viewController id="K8W-zm-eww" customClass="InitialViewController" customModule="BenefitGraph" customModuleProvider="target" sceneMemberID="viewController">
@@ -235,7 +235,7 @@
                         <viewLayoutGuide key="safeArea" id="OXe-b1-xKv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="aMX-5g-7ws"/>
+                    <tabBarItem key="tabBarItem" title="記録" image="doc" catalog="system" id="aMX-5g-7ws"/>
                     <connections>
                         <segue destination="l0z-9w-uXf" kind="show" identifier="add" id="mQw-cO-9O4"/>
                         <segue destination="rzz-lB-gtF" kind="show" identifier="detail" id="ZZF-sI-JCI"/>
@@ -266,9 +266,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mQw-cO-9O4"/>
+        <segue reference="ZZU-ho-bLV"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="chart.bar" catalog="system" width="128" height="90"/>
+        <image name="chart.pie" catalog="system" width="128" height="121"/>
+        <image name="doc" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
