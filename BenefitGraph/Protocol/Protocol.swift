@@ -1,0 +1,5 @@
+
+
+protocol toDetailDelegate {
+    func toDetail()
+}
