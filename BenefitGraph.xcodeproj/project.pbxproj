@@ -27,6 +27,10 @@
 		45BA89C9256B56820090CA4E /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89C8256B56820090CA4E /* Protocol.swift */; };
 		45BA89D2256B5CFC0090CA4E /* CustomViewCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89D0256B5CFC0090CA4E /* CustomViewCell3.swift */; };
 		45BA89D3256B5CFC0090CA4E /* CustomViewCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45BA89D1256B5CFC0090CA4E /* CustomViewCell3.xib */; };
+		45BA89D8256B93300090CA4E /* CategoryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89D7256B93300090CA4E /* CategoryEditViewController.swift */; };
+		45BA89DD256B94040090CA4E /* CategoryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89DC256B94040090CA4E /* CategoryAddViewController.swift */; };
+		45BA89E3256B95260090CA4E /* CustomViewCell4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89E1256B95260090CA4E /* CustomViewCell4.swift */; };
+		45BA89E4256B95260090CA4E /* CustomViewCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45BA89E2256B95260090CA4E /* CustomViewCell4.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,10 @@
 		45BA89C8256B56820090CA4E /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		45BA89D0256B5CFC0090CA4E /* CustomViewCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewCell3.swift; sourceTree = "<group>"; };
 		45BA89D1256B5CFC0090CA4E /* CustomViewCell3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewCell3.xib; sourceTree = "<group>"; };
+		45BA89D7256B93300090CA4E /* CategoryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEditViewController.swift; sourceTree = "<group>"; };
+		45BA89DC256B94040090CA4E /* CategoryAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddViewController.swift; sourceTree = "<group>"; };
+		45BA89E1256B95260090CA4E /* CustomViewCell4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewCell4.swift; sourceTree = "<group>"; };
+		45BA89E2256B95260090CA4E /* CustomViewCell4.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewCell4.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,8 @@
 				45BA89AA256A9D750090CA4E /* DetailViewController.swift */,
 				45BA89AF256A9D7F0090CA4E /* EditViewController.swift */,
 				45BA89B4256A9D870090CA4E /* AddViewController.swift */,
+				45BA89D7256B93300090CA4E /* CategoryEditViewController.swift */,
+				45BA89DC256B94040090CA4E /* CategoryAddViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,6 +187,8 @@
 				45BA89C1256B4E350090CA4E /* CustomViewCell2.xib */,
 				45BA89D0256B5CFC0090CA4E /* CustomViewCell3.swift */,
 				45BA89D1256B5CFC0090CA4E /* CustomViewCell3.xib */,
+				45BA89E1256B95260090CA4E /* CustomViewCell4.swift */,
+				45BA89E2256B95260090CA4E /* CustomViewCell4.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -301,6 +313,7 @@
 			files = (
 				45BA8969256A99B10090CA4E /* LaunchScreen.storyboard in Resources */,
 				45BA89D3256B5CFC0090CA4E /* CustomViewCell3.xib in Resources */,
+				45BA89E4256B95260090CA4E /* CustomViewCell4.xib in Resources */,
 				45BA89C3256B4E350090CA4E /* CustomViewCell2.xib in Resources */,
 				45BA8966256A99B10090CA4E /* Assets.xcassets in Resources */,
 				45BA8964256A99AC0090CA4E /* Main.storyboard in Resources */,
@@ -333,11 +346,14 @@
 				45BA89D2256B5CFC0090CA4E /* CustomViewCell3.swift in Sources */,
 				45BA899C256A9B390090CA4E /* InitialViewController.swift in Sources */,
 				45BA89A6256A9B6F0090CA4E /* PieChartViewController.swift in Sources */,
+				45BA89E3256B95260090CA4E /* CustomViewCell4.swift in Sources */,
 				45BA89BB256B4A530090CA4E /* CustomViewCell1.swift in Sources */,
 				45BA89B5256A9D870090CA4E /* AddViewController.swift in Sources */,
 				45BA89A1256A9B570090CA4E /* LineGraphViewController.swift in Sources */,
 				45BA89C9256B56820090CA4E /* Protocol.swift in Sources */,
+				45BA89D8256B93300090CA4E /* CategoryEditViewController.swift in Sources */,
 				45BA89AB256A9D750090CA4E /* DetailViewController.swift in Sources */,
+				45BA89DD256B94040090CA4E /* CategoryAddViewController.swift in Sources */,
 				45BA895D256A99AC0090CA4E /* AppDelegate.swift in Sources */,
 				45BA895F256A99AC0090CA4E /* SceneDelegate.swift in Sources */,
 				45BA89B0256A9D7F0090CA4E /* EditViewController.swift in Sources */,
