@@ -63,5 +63,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         performSegue(withIdentifier: "categoryEdit", sender: nil)
     }
     
+    
+    @IBAction func addAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
 }

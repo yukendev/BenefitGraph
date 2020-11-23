@@ -20,5 +20,10 @@ class CategoryAddViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    @IBAction func addAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
 }
