@@ -107,7 +107,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlG-pA-Lry">
-                                <rect key="frame" x="142" y="405" width="130" height="86"/>
+                                <rect key="frame" x="273" y="70" width="130" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <state key="normal" title="Edit"/>
@@ -116,18 +116,24 @@
                                     <action selector="editAction:" destination="rzz-lB-gtF" eventType="touchUpInside" id="zls-rX-fac"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aLC-aJ-egO">
+                                <rect key="frame" x="0.0" y="249" width="414" height="598"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Rsi-3o-0Wq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="L6T-XJ-Tdh"/>
                     <connections>
+                        <outlet property="tableView" destination="aLC-aJ-egO" id="x5Q-UX-pjq"/>
                         <segue destination="8c2-jb-M1W" kind="show" identifier="edit" id="PSl-62-wig"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dcg-4p-XXy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-752" y="1215"/>
+            <point key="canvasLocation" x="-752.17391304347836" y="1214.7321428571429"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="FoI-Sm-imh">

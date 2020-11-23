@@ -25,6 +25,8 @@
 		45BA89C2256B4E350090CA4E /* CustomViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89C0256B4E350090CA4E /* CustomViewCell2.swift */; };
 		45BA89C3256B4E350090CA4E /* CustomViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45BA89C1256B4E350090CA4E /* CustomViewCell2.xib */; };
 		45BA89C9256B56820090CA4E /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89C8256B56820090CA4E /* Protocol.swift */; };
+		45BA89D2256B5CFC0090CA4E /* CustomViewCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA89D0256B5CFC0090CA4E /* CustomViewCell3.swift */; };
+		45BA89D3256B5CFC0090CA4E /* CustomViewCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45BA89D1256B5CFC0090CA4E /* CustomViewCell3.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		45BA89C0256B4E350090CA4E /* CustomViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewCell2.swift; sourceTree = "<group>"; };
 		45BA89C1256B4E350090CA4E /* CustomViewCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewCell2.xib; sourceTree = "<group>"; };
 		45BA89C8256B56820090CA4E /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		45BA89D0256B5CFC0090CA4E /* CustomViewCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewCell3.swift; sourceTree = "<group>"; };
+		45BA89D1256B5CFC0090CA4E /* CustomViewCell3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewCell3.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,8 @@
 				45BA89BA256B4A530090CA4E /* CustomViewCell1.xib */,
 				45BA89C0256B4E350090CA4E /* CustomViewCell2.swift */,
 				45BA89C1256B4E350090CA4E /* CustomViewCell2.xib */,
+				45BA89D0256B5CFC0090CA4E /* CustomViewCell3.swift */,
+				45BA89D1256B5CFC0090CA4E /* CustomViewCell3.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -294,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45BA8969256A99B10090CA4E /* LaunchScreen.storyboard in Resources */,
+				45BA89D3256B5CFC0090CA4E /* CustomViewCell3.xib in Resources */,
 				45BA89C3256B4E350090CA4E /* CustomViewCell2.xib in Resources */,
 				45BA8966256A99B10090CA4E /* Assets.xcassets in Resources */,
 				45BA8964256A99AC0090CA4E /* Main.storyboard in Resources */,
@@ -323,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45BA89C2256B4E350090CA4E /* CustomViewCell2.swift in Sources */,
+				45BA89D2256B5CFC0090CA4E /* CustomViewCell3.swift in Sources */,
 				45BA899C256A9B390090CA4E /* InitialViewController.swift in Sources */,
 				45BA89A6256A9B6F0090CA4E /* PieChartViewController.swift in Sources */,
 				45BA89BB256B4A530090CA4E /* CustomViewCell1.swift in Sources */,
