@@ -14,6 +14,7 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var cellContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noDataLabel: UILabel!
     
     let categoryArray: [String] = ["アフィリエイト１", "アフィリエイト２", "アドセンス"]
     let moneyArray: [String] = ["1232円", "1452円", "349円"]

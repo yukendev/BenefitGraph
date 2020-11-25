@@ -7,10 +7,8 @@
 
 import UIKit
 
-class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, toDetailDelegate {
-    
-    
-    
+class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, toDetailDelegate, tableViewReloadDelegate {
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -31,6 +29,12 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        print("viewWillAppear発動")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exampleArray.count
     }
@@ -44,6 +48,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.selectionStyle = .none
         
         cell.delegate = self
+        
+        cell.noDataLabel.isHidden = true
         
         
         return cell
@@ -65,6 +71,16 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         performSegue(withIdentifier: "detail", sender: nil)
     }
     
+    func tableViewReload() {
+        tableView.reloadData()
+        print("成功！")
+        tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nextVC = segue.destination as! AddViewController
+        nextVC.tableViewReloadDelegate = self
+    }
     
     
     

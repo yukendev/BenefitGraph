@@ -8,22 +8,33 @@
 import UIKit
 import RealmSwift
 
-class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+
+class Benefit: Object {
+    @objc dynamic var year: Int = 0
+    @objc dynamic var month: Int = 0
+    @objc dynamic var category: String?
+    @objc dynamic var benefit: Int = 0
+}
+
+class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     
     @IBOutlet weak var moneyTextField: UITextField!
     @IBOutlet weak var monthPickerView: UIPickerView!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
-    var yearArray = [String]()
-    var monthArray: [String] = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+    var yearArray = [Int]()
+    var monthArray: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     var categoryArray = [String]()
     
-    var selectedYear = String()
-    var selectedMonth = String()
+    var selectedYear = Int()
+    var selectedMonth = Int()
     var selectedCategory = String()
     
     let realm = try! Realm()
+    
+    var tableViewReloadDelegate: tableViewReloadDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +43,8 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         monthPickerView.dataSource = self
         categoryPickerView.delegate = self
         categoryPickerView.dataSource = self
+        
+        moneyTextField.delegate = self
         
         setYearArray()
         monthPickerView.selectRow(getMonth(), inComponent: 1, animated: false)
@@ -48,6 +61,14 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         selectedYear = yearArray[getYear()]
         selectedMonth = monthArray[getMonth()]
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -85,9 +106,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         case 0:
             switch component {
             case 0:
-                return yearArray[row]
+                return String(yearArray[row]) + "年"
             case 1:
-                return monthArray[row]
+                return String(monthArray[row]) + "月"
             default:
                 return ""
             }
@@ -106,7 +127,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 print("年選択")
                 selectedYear = yearArray[row]
             case 1:
-                print("年選択")
+                print("月選択")
                 selectedMonth = monthArray[row]
             default:
                 print("エラー")
@@ -131,17 +152,31 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     
     @IBAction func addAction(_ sender: Any) {
-//        dismiss(animated: true, completion: nil)
         print(selectedYear)
         print(selectedMonth)
         print(selectedCategory)
+        if moneyTextField.text == ""{
+            print("空白はダメ")
+            showAlert(title: "入力してください", type: "blank")
+        }else{
+            if isDoubled(year: selectedYear, month: selectedMonth, category: selectedCategory) {
+                print("かぶってるよ")
+                showAlert(title: "同じ月、同じカテゴリーにすでに記録があります。上書きしますか？", type: "double")
+            }else{
+                addToRealm()
+            }
+        }
     }
     
     func setCategoryArray() {
         let realmCategoryArray = realm.objects(Category.self)
         categoryArray = []
-        for category in realmCategoryArray {
-            categoryArray.append(category.categoryName!)
+        if realmCategoryArray.count == 0{
+            categoryArray = ["カテゴリー１"]
+        }else{
+            for category in realmCategoryArray {
+                categoryArray.append(category.categoryName!)
+            }
         }
         selectedCategory = categoryArray[0]
     }
@@ -150,7 +185,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         yearArray = []
         
         for i in 1900..<2101 {
-            yearArray.append(String(i) + "年")
+            yearArray.append(i)
         }
     }
     
@@ -168,5 +203,66 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         return Int(month)! - 1
     }
+    
+    func showAlert(title: String, type: String) {
+        switch type {
+        case "blank":
+            let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)
+            let cansel = UIAlertAction(title: "OK", style: .cancel)
+            alertController.addAction(cansel)
+                    
+            self.present(alertController, animated: true, completion: nil)
+        case "double":
+            let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)
+            let cansel = UIAlertAction(title: "いいえ", style: .cancel)
+            let action1 = UIAlertAction(title: "はい", style: .default) { [self] _ in
+                self.reRecord(year: selectedYear, month: selectedMonth, category: selectedCategory)
+            }
+            alertController.addAction(cansel)
+            alertController.addAction(action1)
+            self.present(alertController, animated: true, completion: nil)
+        default:
+            print("エラー")
+        }
+        let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)
+        let cansel = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(cansel)
+                
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func addToRealm() {
+        let benefit = Benefit()
+//        benefit.year = selectedYear
+//        benefit.year = 0
+        benefit.month = selectedMonth
+        benefit.benefit = Int(moneyTextField.text!)!
+        benefit.category = selectedCategory
+        
+        try! realm.write{
+            realm.add(benefit)
+        }
+        dismiss(animated: true, completion: nil)
+        tableViewReloadDelegate?.tableViewReload()
+    }
+    
+    func isDoubled(year: Int, month: Int, category: String)-> Bool {
+        let benefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
+        if benefit.count == 0{
+            return false
+        }else{
+            return true
+        }
+    }
 
+    func reRecord(year: Int, month: Int, category: String) {
+        print("上書き保存")
+        let deletedBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
+        try! realm.write{
+            realm.delete(deletedBenefit)
+        }
+        
+        addToRealm()
+    }
+    
 }

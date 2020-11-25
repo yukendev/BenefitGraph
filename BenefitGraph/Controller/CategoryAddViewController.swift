@@ -12,7 +12,7 @@ class Category: Object {
     @objc dynamic var categoryName: String?
 }
 
-class CategoryAddViewController: UIViewController {
+class CategoryAddViewController: UIViewController, UITextFieldDelegate {
     
     let realm = try! Realm()
 
@@ -21,6 +21,7 @@ class CategoryAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        textField.delegate = self
         
     }
     
@@ -31,6 +32,14 @@ class CategoryAddViewController: UIViewController {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
     
     
