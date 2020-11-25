@@ -11,25 +11,26 @@ import RealmSwift
 
 
 class Benefit: Object {
-    @objc dynamic var year: Int = 0
-    @objc dynamic var month: Int = 0
+    @objc dynamic var year: String?
+    @objc dynamic var month: String?
     @objc dynamic var category: String?
-    @objc dynamic var benefit: Int = 0
+    @objc dynamic var benefit: String?
 }
 
-class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, setCategoryDelegate {
+    
     
     
     @IBOutlet weak var moneyTextField: UITextField!
     @IBOutlet weak var monthPickerView: UIPickerView!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
-    var yearArray = [Int]()
-    var monthArray: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    var yearArray = [String]()
+    var monthArray: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     var categoryArray = [String]()
     
-    var selectedYear = Int()
-    var selectedMonth = Int()
+    var selectedYear = String()
+    var selectedMonth = String()
     var selectedCategory = String()
     
     let realm = try! Realm()
@@ -106,9 +107,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         case 0:
             switch component {
             case 0:
-                return String(yearArray[row]) + "年"
+                return yearArray[row] + "年"
             case 1:
-                return String(monthArray[row]) + "月"
+                return monthArray[row] + "月"
             default:
                 return ""
             }
@@ -172,6 +173,11 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         let realmCategoryArray = realm.objects(Category.self)
         categoryArray = []
         if realmCategoryArray.count == 0{
+            let category = Category()
+            category.categoryName = "カテゴリー１"
+            try! realm.write{
+                realm.add(category)
+            }
             categoryArray = ["カテゴリー１"]
         }else{
             for category in realmCategoryArray {
@@ -185,7 +191,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         yearArray = []
         
         for i in 1900..<2101 {
-            yearArray.append(i)
+            yearArray.append(String(i))
         }
     }
     
@@ -233,10 +239,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     func addToRealm() {
         let benefit = Benefit()
-//        benefit.year = selectedYear
-//        benefit.year = 0
+        benefit.year = selectedYear
         benefit.month = selectedMonth
-        benefit.benefit = Int(moneyTextField.text!)!
+        benefit.benefit = moneyTextField.text
         benefit.category = selectedCategory
         
         try! realm.write{
@@ -246,7 +251,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         tableViewReloadDelegate?.tableViewReload()
     }
     
-    func isDoubled(year: Int, month: Int, category: String)-> Bool {
+    func isDoubled(year: String, month: String, category: String)-> Bool {
         let benefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
         if benefit.count == 0{
             return false
@@ -255,7 +260,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
     }
 
-    func reRecord(year: Int, month: Int, category: String) {
+    func reRecord(year: String, month: String, category: String) {
         print("上書き保存")
         let deletedBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
         try! realm.write{
@@ -263,6 +268,17 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
         
         addToRealm()
+    }
+    
+    func updateCategoryArray() {
+        print("大成功！！！")
+        setCategoryArray()
+        categoryPickerView.reloadAllComponents()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nextVC = segue.destination as! CategoryEditViewController
+        nextVC.setCategoryDelegate = self
     }
     
 }

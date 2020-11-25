@@ -7,3 +7,7 @@ protocol toDetailDelegate {
 protocol tableViewReloadDelegate {
     func tableViewReload()
 }
+
+protocol setCategoryDelegate {
+    func updateCategoryArray()
+}

@@ -17,6 +17,8 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     
     let realm = try! Realm()
     
+    var setCategoryDelegate: setCategoryDelegate?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +39,8 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        deleteCategory(category: categoryArray[indexPath.row])
-        print(categoryArray[indexPath.row])
+        showAlert(title: "本当に削除しますか？", type: "delete", category: categoryArray[indexPath.row])
+
     }
     
     
@@ -64,6 +66,7 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func backAction(_ sender: Any) {
+        setCategoryDelegate?.updateCategoryArray()
         dismiss(animated: true, completion: nil)
     }
     
@@ -81,17 +84,43 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func deleteCategory(category: String) {
-        
-        let newCategories = realm.objects(Category.self).filter("categoryName != '\(category)'")
-        let deletedCategory = realm.objects(Category.self).filter("categoryName == '\(category)'")
-        try! realm.write{
-            realm.delete(deletedCategory)
+        if categoryArray.count == 1 {
+            showAlert(title: "カテゴリーは最低1つ必要です", type: "1category", category: "")
+        }else{
+            let newCategories = realm.objects(Category.self).filter("categoryName != '\(category)'")
+            let deletedCategory = realm.objects(Category.self).filter("categoryName == '\(category)'")
+            try! realm.write{
+                realm.delete(deletedCategory)
+            }
+            categoryArray = []
+            for category in newCategories {
+                categoryArray.append(category.categoryName!)
+            }
+            tableView.reloadData()
         }
-        categoryArray = []
-        for category in newCategories {
-            categoryArray.append(category.categoryName!)
+    }
+    
+    func showAlert(title: String, type: String, category: String) {
+        switch type {
+        case "1category":
+            let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)
+            let cansel = UIAlertAction(title: "OK", style: .cancel)
+            alertController.addAction(cansel)
+                    
+            self.present(alertController, animated: true, completion: nil)
+        case "delete":
+            let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)
+            let cansel = UIAlertAction(title: "いいえ", style: .cancel)
+            let action1 = UIAlertAction(title: "はい", style: .default) { _ in
+                self.deleteCategory(category: category)
+            }
+            alertController.addAction(cansel)
+            alertController.addAction(action1)
+                    
+            self.present(alertController, animated: true, completion: nil)
+        default:
+            print("エラー")
         }
-        tableView.reloadData()
     }
     
 
