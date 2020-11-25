@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -15,9 +16,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
     var yearArray = [String]()
-    var monthArray = [String]()
+    var monthArray: [String] = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
     var categoryArray = [String]()
     
+    let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,19 +29,17 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         categoryPickerView.delegate = self
         categoryPickerView.dataSource = self
         
-        monthPickerView.selectRow(0, inComponent: 0, animated: false)
-        monthPickerView.selectRow(1, inComponent: 1, animated: false)
+        setYearArray()
+        monthPickerView.selectRow(getMonth(), inComponent: 1, animated: false)
+        monthPickerView.selectRow(getYear(), inComponent: 0, animated: false)
+        
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        yearArray = ["2020年", "2021年", "2022年"]
-        
-        monthArray = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
-        
-        categoryArray = ["アフィリエイト１", "アフィリエイト2", "アドセンス"]
+        setCategoryArray()
         
     }
     
@@ -108,5 +108,35 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         dismiss(animated: true, completion: nil)
     }
     
+    func setCategoryArray() {
+        let realmCategoryArray = realm.objects(Category.self)
+        categoryArray = []
+        for category in realmCategoryArray {
+            categoryArray.append(category.categoryName!)
+        }
+    }
+    
+    func setYearArray() {
+        yearArray = []
+        
+        for i in 1900..<2101 {
+            yearArray.append(String(i) + "年")
+        }
+    }
+    
+    func getYear()-> Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyy", options: 0, locale: Locale.current)
+        let year = formatter.string(from: Date())
+        return Int(year)! - 1900
+    }
+    
+    func getMonth()-> Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "MM", options: 0, locale: Locale.current)
+        let month = formatter.string(from: Date())
+        
+        return Int(month)! - 1
+    }
 
 }
