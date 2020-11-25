@@ -19,6 +19,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     var monthArray: [String] = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
     var categoryArray = [String]()
     
+    var selectedYear = String()
+    var selectedMonth = String()
+    var selectedCategory = String()
+    
     let realm = try! Realm()
 
     override func viewDidLoad() {
@@ -40,6 +44,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         super.viewWillAppear(true)
         
         setCategoryArray()
+        
+        selectedYear = yearArray[getYear()]
+        selectedMonth = monthArray[getMonth()]
         
     }
     
@@ -89,8 +96,27 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         default:
             return ""
         }
-        
-//        return addArray[pickerView.tag][row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView.tag {
+        case 0:
+            switch component {
+            case 0:
+                print("年選択")
+                selectedYear = yearArray[row]
+            case 1:
+                print("年選択")
+                selectedMonth = monthArray[row]
+            default:
+                print("エラー")
+            }
+        case 1:
+            print("カテゴリー選択")
+            selectedCategory = categoryArray[row]
+        default:
+            print("エラー")
+        }
     }
     
 
@@ -105,7 +131,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     
     @IBAction func addAction(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
+        print(selectedYear)
+        print(selectedMonth)
+        print(selectedCategory)
     }
     
     func setCategoryArray() {
@@ -114,6 +143,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         for category in realmCategoryArray {
             categoryArray.append(category.categoryName!)
         }
+        selectedCategory = categoryArray[0]
     }
     
     func setYearArray() {
