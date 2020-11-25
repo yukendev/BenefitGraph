@@ -1,0 +1,6 @@
+framework module Pods_BenefitGraphTests {
+  umbrella header "Pods-BenefitGraphTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

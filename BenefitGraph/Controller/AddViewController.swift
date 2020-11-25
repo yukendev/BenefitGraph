@@ -14,7 +14,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     @IBOutlet weak var monthPickerView: UIPickerView!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
-    var addArray = [[String]]()
+    var yearArray = [String]()
+    var monthArray = [String]()
+    var categoryArray = [String]()
     
 
     override func viewDidLoad() {
@@ -24,33 +26,71 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         monthPickerView.dataSource = self
         categoryPickerView.delegate = self
         categoryPickerView.dataSource = self
+        
+        monthPickerView.selectRow(0, inComponent: 0, animated: false)
+        monthPickerView.selectRow(1, inComponent: 1, animated: false)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        addArray = [[], []]
+        yearArray = ["2020年", "2021年", "2022年"]
         
-        addArray[0] = ["2020年 10月", "2020年 11月", "2020年 12月"]
-        addArray[1] = ["アフィリエイト１", "アフィリエイト２", "アドセンス"]
+        monthArray = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
         
-        print(addArray)
+        categoryArray = ["アフィリエイト１", "アフィリエイト2", "アドセンス"]
         
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        switch pickerView.tag {
+        case 0:
+            return 2
+        case 1:
+            return 1
+        default:
+            return 1
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        return addArray[pickerView.tag].count
+        switch pickerView.tag {
+        case 0:
+            switch component {
+            case 0:
+                return yearArray.count
+            case 1:
+                return monthArray.count
+            default:
+                return 0
+            }
+        case 1:
+            return categoryArray.count
+        default:
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return addArray[pickerView.tag][row]
+        switch pickerView.tag {
+        case 0:
+            switch component {
+            case 0:
+                return yearArray[row]
+            case 1:
+                return monthArray[row]
+            default:
+                return ""
+            }
+        case 1:
+            return categoryArray[row]
+        default:
+            return ""
+        }
+        
+//        return addArray[pickerView.tag][row]
     }
     
 
