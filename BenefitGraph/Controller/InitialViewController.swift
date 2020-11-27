@@ -15,9 +15,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var monthArray: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let yearMonthArray = [String]()
-//    var sortedBenefitArray = [Benefit]()
     var monthLabelArray = [[Int]]()
-//    var cellBenefitArray = [Benefit]()
     let realm = try! Realm()
     
 
@@ -48,8 +46,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell1", for: indexPath) as! CustomViewCell1
-        
-//        cell.cellLabel.text = monthLabelArray[indexPath.row]
+
         let yearText = String(monthLabelArray[indexPath.row][0])
         let monthText = String(monthLabelArray[indexPath.row][1])
         
@@ -57,7 +54,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.benefitArray = getCellBenefit(year: yearText, month: monthText)
         
-        cell.testText = "テスト"
+        cell.testText = "足すとだき"
         
         cell.selectionStyle = .none
         
@@ -118,7 +115,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func sortBenefit(yearArray: [Int]) {
         
-//        sortedBenefitArray = []
         monthLabelArray = []
     
         
@@ -127,7 +123,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             for month in monthArray {
                 for benefit in benefitArray {
                     if benefit.month == String(month) {
-//                        sortedBenefitArray.append(benefit)
                         if monthLabelArray.contains([year, month]){
                             print("重複あり")
                         }else{
@@ -157,9 +152,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         for benefit in benefitArray {
             cellBenefitArray.append(benefit)
         }
-        
-        print("ガウルぐら")
-        print(cellBenefitArray)
         
         return cellBenefitArray
         
