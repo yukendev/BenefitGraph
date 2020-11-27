@@ -16,14 +16,18 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noDataLabel: UILabel!
     
-    let categoryArray: [String] = ["アフィリエイト１", "アフィリエイト２", "アドセンス"]
-    let moneyArray: [String] = ["1232円", "1452円", "349円"]
+    var categoryArray = [String]()
+    var moneyArray = [String]()
+    var benefitArray = [Benefit]()
+    var testText = String()
     
     var delegate: toDetailDelegate?
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        setCellArray()
         
         cellContainer.layer.borderWidth = 1.0
         cellContainer.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1.0)
@@ -60,6 +64,21 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
         self.delegate?.toDetail()
         print("中のcellが押されました")
         
+    }
+    
+    func setCellArray() {
+        categoryArray = []
+        moneyArray = []
+        for benefit in benefitArray {
+            categoryArray.append(benefit.category!)
+            moneyArray.append(benefit.benefit! + "円")
+        }
+        tableView.reloadData()
+        print("ぐわらキーン")
+        print(benefitArray)
+        
+        print("これならどうや")
+        print(testText)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
