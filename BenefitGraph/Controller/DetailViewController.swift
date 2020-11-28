@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -15,9 +16,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     
-    let categoryArray: [String] = ["アフィリエイト１", "アフィリエイト２", "アドセンス"]
-    let moneyArray: [String] = ["1232円", "1452円", "349円"]
+    var categoryArray = [String]()
+    var moneyArray = [String]()
     
+    var year = String()
+    var month = String()
+    
+    let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +34,15 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        print("さぁ、いくぞ")
+        print(year)
+        print(month)
+        getFromRealm()
     }
     
     
@@ -57,6 +71,22 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    func getFromRealm() {
+        categoryArray = []
+        moneyArray = []
+        
+        let benefitArray = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)'")
+        for benefit in benefitArray {
+            categoryArray.append(benefit.category!)
+            moneyArray.append(benefit.benefit!)
+        }
+        
+        print("getFromRealm発動")
+        print(categoryArray)
+        print(moneyArray)
+        tableView.reloadData()
+        
+    }
     
 
 

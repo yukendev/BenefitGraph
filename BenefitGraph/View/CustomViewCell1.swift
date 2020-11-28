@@ -18,7 +18,8 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     
     var categoryArray = [String]()
     var moneyArray = [String]()
-    var cellCount = Int()
+    var year = String()
+    var month = String()
     
     var delegate: toDetailDelegate?
     
@@ -41,7 +42,7 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellCount
+        return categoryArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,7 +64,7 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.toDetail()
+        self.delegate?.toDetail(year: year, month: month)
         print("中のcellが押されました")
         
     }

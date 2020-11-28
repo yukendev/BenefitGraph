@@ -1,7 +1,7 @@
 
 
 protocol toDetailDelegate {
-    func toDetail()
+    func toDetail(year: String, month: String)
 }
 
 protocol tableViewReloadDelegate {

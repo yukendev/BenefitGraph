@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, toDetailDelegate, tableViewReloadDelegate {
+    
 
     
     @IBOutlet weak var tableView: UITableView!
@@ -16,6 +17,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     var monthArray: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let yearMonthArray = [String]()
     var monthLabelArray = [[Int]]()
+    var detailYear = String()
+    var detailMonth = String()
     let realm = try! Realm()
     
 
@@ -62,13 +65,14 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.moneyArray.append(benefit.benefit!)
         }
         
-        cell.cellCount = benefitArray.count
+        cell.year = yearText
         
-        print("今から\(yearText)年 \(monthText)月のセルを生成します")
-        print(benefitArray)
-        print(cell.cellCount)
-        print(cell.categoryArray)
-        print(cell.moneyArray)
+        cell.month = monthText
+        
+//        print("今から\(yearText)年 \(monthText)月のセルを生成します")
+//        print(benefitArray)
+//        print(cell.categoryArray)
+//        print(cell.moneyArray)
         
         cell.tableView.reloadData()
         
@@ -88,14 +92,16 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         print("cellが押されました")
         
         
-        toDetail()
+        toDetail(year: String(monthLabelArray[indexPath.row][0]), month: String(monthLabelArray[indexPath.row][1]))
     }
 
     @IBAction func addAction(_ sender: Any) {
         performSegue(withIdentifier: "add", sender: nil)
     }
     
-    func toDetail() {
+    func toDetail(year: String, month: String) {
+        detailYear = year
+        detailMonth = month
         performSegue(withIdentifier: "detail", sender: nil)
     }
     
@@ -106,8 +112,14 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nextVC = segue.destination as! AddViewController
-        nextVC.tableViewReloadDelegate = self
+        if segue.identifier == "add" {
+            let nextVC = segue.destination as! AddViewController
+            nextVC.tableViewReloadDelegate = self
+        }else if segue.identifier == "detail" {
+            let nextVC = segue.destination as! DetailViewController
+            nextVC.year = detailYear
+            nextVC.month = detailMonth
+        }
     }
     
     func getFromRealm() {
