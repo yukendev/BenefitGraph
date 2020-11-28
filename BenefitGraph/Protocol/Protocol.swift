@@ -11,3 +11,7 @@ protocol tableViewReloadDelegate {
 protocol setCategoryDelegate {
     func updateCategoryArray()
 }
+
+protocol toEditDelegate {
+    func toEdit(category: String, year: String, month: String)
+}

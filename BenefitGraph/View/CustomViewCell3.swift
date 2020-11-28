@@ -14,6 +14,11 @@ class CustomViewCell3: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var moneyLabel: UILabel!
     
+    var category = String()
+    var year = String()
+    var month = String()
+    
+    var delegate: toEditDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,5 +31,11 @@ class CustomViewCell3: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
+    
+    @IBAction func editAction(_ sender: Any) {
+        print("編集")
+        delegate?.toEdit(category: category, year: year, month: month)
+    }
+    
     
 }

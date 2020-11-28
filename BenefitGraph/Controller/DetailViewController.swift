@@ -8,9 +8,7 @@
 import UIKit
 import RealmSwift
 
-class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, toEditDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,6 +19,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var year = String()
     var month = String()
+    
+    var editedCategory = String()
+    var editedYear = String()
+    var editedMonth = String()
     
     let realm = try! Realm()
 
@@ -65,7 +67,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.categoryLabel.text = categoryArray[indexPath.row]
         cell.moneyLabel.text = moneyArray[indexPath.row]
         
+        cell.category = categoryArray[indexPath.row]
+        cell.year = year
+        cell.month = month
+        
         cell.selectionStyle = .none
+        
+        cell.delegate = self
         
         
         return cell
@@ -122,6 +130,20 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
         print("消しました")
+    }
+    
+    func toEdit(category: String, year: String, month: String) {
+        editedCategory = category
+        editedYear = year
+        editedMonth = month
+        performSegue(withIdentifier: "edit", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nextVC = segue.destination as! EditViewController
+        nextVC.editedCategory = editedCategory
+        nextVC.editedYear = editedYear
+        nextVC.editedMonth = editedMonth
     }
 
 
