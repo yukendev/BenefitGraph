@@ -71,6 +71,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        print("\(categoryArray[indexPath.row])を消します")
+        showAlert(category: categoryArray[indexPath.row])
+    }
+    
     func getFromRealm() {
         categoryArray = []
         moneyArray = []
@@ -88,6 +94,35 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    func showAlert(category: String) {
+        let alertController = UIAlertController(title: "本当に削除しますか？", message: "", preferredStyle: .alert)
+        let delete = UIAlertAction(title: "はい", style: .default) { _ in
+            self.deleteAction(category: category)
+        }
+        let cansel = UIAlertAction(title: "いいえ", style: .cancel)
+        
+        alertController.addAction(delete)
+        alertController.addAction(cansel)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteAction(category: String) {
+        
+        let deletedBenefitArray = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
+        
+        try! realm.write{
+            realm.delete(deletedBenefitArray)
+        }
+        
+        getFromRealm()
+        if categoryArray.count == 0 {
+            dismiss(animated: true, completion: nil)
+        }else{
+            
+        }
+        print("消しました")
+    }
 
 
 }
