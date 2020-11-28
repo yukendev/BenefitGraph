@@ -70,6 +70,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         print(cell.categoryArray)
         print(cell.moneyArray)
         
+        cell.tableView.reloadData()
+        
         
         cell.selectionStyle = .none
         

@@ -48,7 +48,12 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell2", for: indexPath) as! CustomViewCell2
         
+        print("こちらセルの中です")
+        print(categoryArray[indexPath.row])
+        print(moneyArray[indexPath.row])
+        
         cell.selectionStyle = .none
+        
         cell.categoryLabel.text = categoryArray[indexPath.row]
         cell.moneyLabel.text = moneyArray[indexPath.row]
         

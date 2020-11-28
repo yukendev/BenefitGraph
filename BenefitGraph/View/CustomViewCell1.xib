@@ -66,7 +66,7 @@
                 <outlet property="noDataLabel" destination="STt-si-bU4" id="1X4-b9-4y4"/>
                 <outlet property="tableView" destination="0KJ-fw-Zkg" id="Pd7-7F-vJe"/>
             </connections>
-            <point key="canvasLocation" x="-146.37681159420291" y="177.45535714285714"/>
+            <point key="canvasLocation" x="-139" y="141"/>
         </tableViewCell>
     </objects>
     <resources>
