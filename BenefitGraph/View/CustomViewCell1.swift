@@ -16,25 +16,15 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noDataLabel: UILabel!
     
-//    var categoryArray = [String]()
-//    var moneyArray = [String]()
-    
-    var categoryArray: [String] = []
-    var moneyArray: [String] = []
-    
-    var testText: String = ""
-    var benefitArray: [Benefit] = []
+    var categoryArray = [String]()
+    var moneyArray = [String]()
+    var cellCount = Int()
     
     var delegate: toDetailDelegate?
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        setCellArray()
-        
-//        categoryArray = ["うんこ"]
-//        moneyArray = ["123円"]
         
         cellContainer.layer.borderWidth = 1.0
         cellContainer.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1.0)
@@ -51,16 +41,12 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryArray.count
+        return cellCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell2", for: indexPath) as! CustomViewCell2
-        
-        print("目標大臣")
-        print(benefitArray)
-        print(testText)
         
         cell.selectionStyle = .none
         cell.categoryLabel.text = categoryArray[indexPath.row]
@@ -75,18 +61,6 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
         self.delegate?.toDetail()
         print("中のcellが押されました")
         
-    }
-    
-    func setCellArray() {
-        print("発動のおきな")
-        print(benefitArray)
-        categoryArray = []
-        moneyArray = []
-        for benefit in benefitArray {
-            categoryArray.append(benefit.category!)
-            moneyArray.append(benefit.benefit! + "円")
-        }
-        tableView.reloadData()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

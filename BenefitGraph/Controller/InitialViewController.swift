@@ -52,9 +52,24 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.cellLabel.text = yearText + "年 " + monthText + "月"
         
-        cell.benefitArray = getCellBenefit(year: yearText, month: monthText)
+        let benefitArray = getCellBenefit(year: yearText, month: monthText)
         
-        cell.testText = "足すとだき"
+        cell.categoryArray = []
+        cell.moneyArray = []
+        
+        for benefit in benefitArray {
+            cell.categoryArray.append(benefit.category!)
+            cell.moneyArray.append(benefit.benefit!)
+        }
+        
+        cell.cellCount = benefitArray.count
+        
+        print("今から\(yearText)年 \(monthText)月のセルを生成します")
+        print(benefitArray)
+        print(cell.cellCount)
+        print(cell.categoryArray)
+        print(cell.moneyArray)
+        
         
         cell.selectionStyle = .none
         
@@ -134,6 +149,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         print(monthLabelArray)
+        tableView.reloadData()
     }
     
     
