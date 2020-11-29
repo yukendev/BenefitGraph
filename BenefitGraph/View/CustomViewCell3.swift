@@ -17,6 +17,7 @@ class CustomViewCell3: UITableViewCell {
     var category = String()
     var year = String()
     var month = String()
+    var money = String()
     
     var delegate: toEditDelegate?
 
@@ -34,7 +35,7 @@ class CustomViewCell3: UITableViewCell {
     
     @IBAction func editAction(_ sender: Any) {
         print("編集")
-        delegate?.toEdit(category: category, year: year, month: month)
+        delegate?.toEdit(category: category, year: year, month: month, money: money)
     }
     
     

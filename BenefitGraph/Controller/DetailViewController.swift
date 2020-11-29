@@ -23,6 +23,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var editedCategory = String()
     var editedYear = String()
     var editedMonth = String()
+    var editedMoney = String()
     
     let realm = try! Realm()
 
@@ -70,6 +71,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.category = categoryArray[indexPath.row]
         cell.year = year
         cell.month = month
+        cell.money = moneyArray[indexPath.row]
         
         cell.selectionStyle = .none
         
@@ -132,10 +134,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print("消しました")
     }
     
-    func toEdit(category: String, year: String, month: String) {
+    func toEdit(category: String, year: String, month: String, money: String) {
         editedCategory = category
         editedYear = year
         editedMonth = month
+        editedMoney = money
         performSegue(withIdentifier: "edit", sender: nil)
     }
     
@@ -144,6 +147,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         nextVC.editedCategory = editedCategory
         nextVC.editedYear = editedYear
         nextVC.editedMonth = editedMonth
+        nextVC.editedMoney = editedMoney
     }
 
 

@@ -13,5 +13,5 @@ protocol setCategoryDelegate {
 }
 
 protocol toEditDelegate {
-    func toEdit(category: String, year: String, month: String)
+    func toEdit(category: String, year: String, month: String, money: String)
 }
