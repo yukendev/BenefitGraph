@@ -17,5 +17,6 @@ target 'BenefitGraph' do
   end
 
 pod 'RealmSwift'
+pod 'Charts'
 
 end

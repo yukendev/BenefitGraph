@@ -14,11 +14,5 @@ class PieChartViewController: UIViewController {
 
     }
     
-    
-    
-    @IBAction func addAction(_ sender: Any) {
-        performSegue(withIdentifier: "add", sender: nil)
-    }
-    
 
 }
