@@ -17,11 +17,14 @@ class CategoryAddViewController: UIViewController, UITextFieldDelegate {
     let realm = try! Realm()
 
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var addButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         textField.delegate = self
+        
+        addButton.layer.cornerRadius = 5
         
     }
     

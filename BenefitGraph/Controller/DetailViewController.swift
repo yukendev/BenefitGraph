@@ -13,6 +13,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var detailLabel: UILabel!
     
     
     var categoryArray = [String]()
@@ -43,6 +44,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        detailLabel.text = year + "年　" + month + "月"
+        
         print("さぁ、いくぞ")
         print(year)
         print(month)
@@ -52,11 +55,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    
-    @IBAction func editAction(_ sender: Any) {
-        performSegue(withIdentifier: "edit", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

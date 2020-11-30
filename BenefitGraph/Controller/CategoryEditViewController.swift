@@ -12,6 +12,7 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addButton: UIButton!
     
     var categoryArray = [String]()
     
@@ -27,6 +28,11 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
         tableView.dataSource = self
         tableView.register(UINib(nibName: "CustomViewCell4", bundle: nil), forCellReuseIdentifier: "CustomCell4")
         tableView.separatorStyle = .none
+        
+        addButton.layer.cornerRadius = 5
+        
+        addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +42,21 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
         
         
     }
+    
+    @objc func pushButton_Animation(_ sender: UIButton){
+        UIView.animate(withDuration: 0.1, animations:{ () -> Void in
+            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        })
+    }
+        
+        
+    @objc func separateButton_Animation(_ sender: UIButton){
+        UIView.animate(withDuration: 0.2, animations:{ () -> Void in
+            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        })
+    }
+
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         

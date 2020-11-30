@@ -20,11 +20,15 @@ class EditViewController: UIViewController {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var moneyTextField: UITextField!
+    @IBOutlet weak var editButton: UIButton!
     
     let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        editButton.layer.cornerRadius = 5
+        
 
     }
     

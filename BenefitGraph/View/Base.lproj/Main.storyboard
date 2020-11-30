@@ -90,30 +90,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaD-Xf-qeG">
-                                <rect key="frame" x="101" y="164" width="213" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wR3-mO-Dbo">
-                                <rect key="frame" x="0.0" y="70" width="130" height="86"/>
+                                <rect key="frame" x="0.0" y="70" width="76" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <state key="normal" title="戻る"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="←back"/>
                                 <connections>
                                     <action selector="backButton:" destination="rzz-lB-gtF" eventType="touchUpInside" id="tHK-1A-XmG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlG-pA-Lry">
-                                <rect key="frame" x="273" y="70" width="130" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <state key="normal" title="Edit"/>
-                                <connections>
-                                    <action selector="addAction:" destination="K8W-zm-eww" eventType="touchUpInside" id="IKX-kM-zWZ"/>
-                                    <action selector="editAction:" destination="rzz-lB-gtF" eventType="touchUpInside" id="zls-rX-fac"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aLC-aJ-egO">
@@ -121,12 +104,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaD-Xf-qeG">
+                                <rect key="frame" x="20" y="164" width="374" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Rsi-3o-0Wq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="L6T-XJ-Tdh"/>
                     <connections>
+                        <outlet property="detailLabel" destination="vaD-Xf-qeG" id="3qz-hU-3ni"/>
                         <outlet property="tableView" destination="aLC-aJ-egO" id="x5Q-UX-pjq"/>
                         <segue destination="8c2-jb-M1W" kind="show" identifier="edit" id="PSl-62-wig"/>
                     </connections>
@@ -151,10 +142,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELL-76-EAi">
-                                <rect key="frame" x="0.0" y="44" width="130" height="86"/>
+                                <rect key="frame" x="0.0" y="44" width="71" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <state key="normal" title="戻る"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="←back"/>
                                 <connections>
                                     <action selector="backAction:" destination="8c2-jb-M1W" eventType="touchUpInside" id="hq2-PR-g7b"/>
                                 </connections>
@@ -189,6 +180,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y49-87-7pI">
                                 <rect key="frame" x="147" y="484" width="121" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="編集"/>
                                 <connections>
@@ -202,6 +194,7 @@
                     <navigationItem key="navigationItem" id="1J3-Wk-48O"/>
                     <connections>
                         <outlet property="categoryLabel" destination="y8u-Ab-osg" id="Dnt-6M-bVv"/>
+                        <outlet property="editButton" destination="y49-87-7pI" id="y3b-kg-CvR"/>
                         <outlet property="moneyTextField" destination="HTi-J9-NIf" id="NCe-za-n66"/>
                         <outlet property="monthLabel" destination="65j-4d-ENL" id="Bd8-Mg-757"/>
                     </connections>
@@ -218,7 +211,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lx-YH-mSa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="追加" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lx-YH-mSa">
                                 <rect key="frame" x="101" y="64" width="213" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
@@ -226,10 +219,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aqv-EC-C9A">
-                                <rect key="frame" x="0.0" y="52" width="103" height="86"/>
+                                <rect key="frame" x="0.0" y="52" width="93" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <state key="normal" title="戻る"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="←back"/>
                                 <connections>
                                     <action selector="backAction:" destination="l0z-9w-uXf" eventType="touchUpInside" id="M1Z-hx-oVA"/>
                                 </connections>
@@ -258,7 +251,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phi-LZ-Iqe">
                                 <rect key="frame" x="150" y="527" width="115" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="追加"/>
                                 <connections>
@@ -280,7 +273,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="YLh-Pz-1mj"/>
                     <connections>
+                        <outlet property="addButton" destination="Phi-LZ-Iqe" id="h3k-bi-hIW"/>
                         <outlet property="categoryPickerView" destination="UDj-p5-cCl" id="y0M-Gx-OSj"/>
+                        <outlet property="editButton" destination="NnY-Ka-QCY" id="qOh-ho-ms7"/>
                         <outlet property="moneyTextField" destination="oAI-KI-2Jc" id="HEL-7t-P6U"/>
                         <outlet property="monthPickerView" destination="EgS-wc-W7N" id="LsD-dC-uI2"/>
                         <segue destination="jPp-So-Qeb" kind="show" identifier="categoryEdit" id="zZW-da-MyP"/>
@@ -288,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="08a-mL-Y5C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="881" y="1208"/>
+            <point key="canvasLocation" x="879.71014492753625" y="1207.3660714285713"/>
         </scene>
         <!--Category Edit View Controller-->
         <scene sceneID="DWQ-rq-gAP">
@@ -313,7 +308,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTE-ty-7YV">
                                 <rect key="frame" x="0.0" y="65" width="127" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="キャンセル"/>
                                 <connections>
                                     <action selector="backAction:" destination="jPp-So-Qeb" eventType="touchUpInside" id="Ild-Um-3C2"/>
@@ -342,6 +337,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="aBx-Y2-QZq"/>
                     <connections>
+                        <outlet property="addButton" destination="nrQ-JR-teC" id="1ch-8G-eb8"/>
                         <outlet property="tableView" destination="hS3-oc-XVg" id="go8-gm-mxD"/>
                         <segue destination="15D-Kk-Fwt" kind="show" identifier="categoryAdd" id="DFt-5V-1E7"/>
                     </connections>
@@ -361,7 +357,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tbc-gt-W7v">
                                 <rect key="frame" x="0.0" y="61" width="127" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="キャンセル"/>
                                 <connections>
                                     <action selector="backAction:" destination="15D-Kk-Fwt" eventType="touchUpInside" id="As1-Ms-uiE"/>
@@ -383,6 +379,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qE3-1l-ygG">
                                 <rect key="frame" x="145" y="327" width="125" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="追加"/>
                                 <connections>
@@ -395,6 +392,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZzQ-z0-LxW"/>
                     <connections>
+                        <outlet property="addButton" destination="qE3-1l-ygG" id="NYo-F8-xvV"/>
                         <outlet property="textField" destination="Mdx-rK-AgN" id="WKh-J7-6Zt"/>
                     </connections>
                 </viewController>
@@ -410,33 +408,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Initial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEl-SF-khd">
-                                <rect key="frame" x="101" y="28" width="213" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku5-Pc-cLS">
-                                <rect key="frame" x="142" y="77" width="130" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <state key="normal" title="Add"/>
-                                <connections>
-                                    <action selector="addAction:" destination="K8W-zm-eww" eventType="touchUpInside" id="7CQ-OW-xK4"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d2A-ZB-3sr">
                                 <rect key="frame" x="0.0" y="239" width="414" height="574"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku5-Pc-cLS">
+                                <rect key="frame" x="334" y="44" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="plus"/>
+                                <connections>
+                                    <action selector="addAction:" destination="K8W-zm-eww" eventType="touchUpInside" id="7CQ-OW-xK4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OXe-b1-xKv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="記録" image="doc" catalog="system" id="aMX-5g-7ws"/>
                     <connections>
+                        <outlet property="addButton" destination="ku5-Pc-cLS" id="3na-x7-2Ff"/>
                         <outlet property="tableView" destination="d2A-ZB-3sr" id="Cg3-kX-mVd"/>
                         <segue destination="l0z-9w-uXf" kind="show" identifier="add" id="mQw-cO-9O4"/>
                         <segue destination="rzz-lB-gtF" kind="show" identifier="detail" id="ZZF-sI-JCI"/>
@@ -473,14 +464,15 @@
         <image name="chart.bar" catalog="system" width="128" height="90"/>
         <image name="chart.pie" catalog="system" width="128" height="121"/>
         <image name="doc" catalog="system" width="115" height="128"/>
+        <image name="plus" width="1280" height="1280"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

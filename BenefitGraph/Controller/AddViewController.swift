@@ -24,6 +24,8 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     @IBOutlet weak var moneyTextField: UITextField!
     @IBOutlet weak var monthPickerView: UIPickerView!
     @IBOutlet weak var categoryPickerView: UIPickerView!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
     
     var yearArray = [String]()
     var monthArray: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
@@ -51,6 +53,14 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         monthPickerView.selectRow(getMonth(), inComponent: 1, animated: false)
         monthPickerView.selectRow(getYear(), inComponent: 0, animated: false)
         
+        editButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        editButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
+        
+        addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
+        
+        addButton.layer.cornerRadius = 5
+        
 
     }
     
@@ -62,6 +72,20 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         selectedYear = yearArray[getYear()]
         selectedMonth = monthArray[getMonth()]
         
+    }
+    
+    @objc func pushButton_Animation(_ sender: UIButton){
+        UIView.animate(withDuration: 0.1, animations:{ () -> Void in
+            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        })
+    }
+        
+        
+    @objc func separateButton_Animation(_ sender: UIButton){
+        UIView.animate(withDuration: 0.2, animations:{ () -> Void in
+            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        })
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

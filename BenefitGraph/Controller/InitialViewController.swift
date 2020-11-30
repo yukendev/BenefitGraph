@@ -13,6 +13,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addButton: UIButton!
     
     var monthArray: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let yearMonthArray = [String]()
@@ -31,8 +32,25 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.separatorStyle = .none
         
         tableView.register(UINib(nibName: "CustomViewCell1", bundle: nil), forCellReuseIdentifier: "CustomCell1")
-
         
+        addButton.adjustsImageWhenHighlighted = false
+        addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
+        
+    }
+    
+    @objc func pushButton_Animation(_ sender: UIButton){
+        UIView.animate(withDuration: 0.1, animations:{ () -> Void in
+            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        })
+    }
+        
+        
+    @objc func separateButton_Animation(_ sender: UIButton){
+        UIView.animate(withDuration: 0.2, animations:{ () -> Void in
+            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,19 +87,12 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.month = monthText
         
-//        print("今から\(yearText)年 \(monthText)月のセルを生成します")
-//        print(benefitArray)
-//        print(cell.categoryArray)
-//        print(cell.moneyArray)
-        
         cell.tableView.reloadData()
         
         
         cell.selectionStyle = .none
         
         cell.delegate = self
-        
-        cell.noDataLabel.isHidden = true
         
         
         return cell
@@ -163,6 +174,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         print(monthLabelArray)
+        monthLabelArray.reverse()
         tableView.reloadData()
     }
     
