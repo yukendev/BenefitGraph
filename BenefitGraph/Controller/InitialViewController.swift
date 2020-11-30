@@ -20,6 +20,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     var monthLabelArray = [[Int]]()
     var detailYear = String()
     var detailMonth = String()
+    let noDataLabel = UILabel()
     let realm = try! Realm()
     
 
@@ -36,6 +37,14 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         addButton.adjustsImageWhenHighlighted = false
         addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
         addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
+        
+        noDataLabel.text = "記録がありません"
+        noDataLabel.font = noDataLabel.font.withSize(30)
+        noDataLabel.frame = CGRect(x:50,y:50,width: 250,height:250)
+        noDataLabel.textAlignment = .center
+        noDataLabel.center = self.view.center
+        self.view.addSubview(noDataLabel)
+        
         
     }
     
@@ -58,6 +67,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         print("viewWillAppear発動")
         getFromRealm()
+        noDataLabelisHidden()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,9 +127,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableViewReload() {
-        tableView.reloadData()
-        print("成功！")
-        tableView.reloadData()
+        getFromRealm()
+        noDataLabelisHidden()
+        print("ラジオ成功！")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -197,6 +207,16 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cellBenefitArray
         
+    }
+    
+    func noDataLabelisHidden() {
+        if monthLabelArray.count == 0 {
+            noDataLabel.isHidden = false
+            print("ラベルを出す")
+        }else{
+            noDataLabel.isHidden = true
+            print("ラベルを隠す")
+        }
     }
 
 }

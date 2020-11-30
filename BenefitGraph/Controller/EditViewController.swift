@@ -46,6 +46,10 @@ class EditViewController: UIViewController {
         print(editedMoney)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
 
     
     @IBAction func backAction(_ sender: Any) {
