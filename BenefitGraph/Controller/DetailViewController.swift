@@ -8,7 +8,8 @@
 import UIKit
 import RealmSwift
 
-class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, toEditDelegate {
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, toEditDelegate, tableViewReloadDelegate {
+    
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -148,6 +149,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         nextVC.editedYear = editedYear
         nextVC.editedMonth = editedMonth
         nextVC.editedMoney = editedMoney
+        nextVC.delegate = self
+    }
+    
+    func tableViewReload() {
+        print("コロネ")
+        getFromRealm()
     }
 
 
