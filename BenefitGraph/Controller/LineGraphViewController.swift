@@ -18,6 +18,9 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var lineChart: LineChartView!
     @IBOutlet weak var yearPickerView: UIPickerView!
     @IBOutlet weak var categoryPickerView: UIPickerView!
+    @IBOutlet weak var yearContainer: UIView!
+    @IBOutlet weak var categoryContainer: UIView!
+    @IBOutlet weak var benefitLabel: UILabel!
     
     let months: [Double] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let monthsString: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
@@ -39,6 +42,8 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         yearPickerView.dataSource = self
         categoryPickerView.delegate = self
         categoryPickerView.dataSource = self
+        yearContainer.layer.cornerRadius = 10
+        categoryContainer.layer.cornerRadius = 10
         
         setLineGraph()
 
@@ -47,12 +52,18 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        
+        
         getYearAndCategory()
         
         category = categoryArray[0]
-        year = yearArray[0]
+        year = yearArray[yearArray.count - 1]
         
         reloadGraph(category: category, year: Int(year)!)
+        benefitLabel.text = "\(getAllBenefit(year: year))" + "円"
+        
+        yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
+        categoryPickerView.selectRow(0, inComponent: 0, animated: true)
     }
     
     func setLineGraph(){
@@ -170,6 +181,7 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         case 0:
             year = yearArray[row]
             reloadGraph(category: category, year: Int(year)!)
+            benefitLabel.text = "\(getAllBenefit(year: year))" + "円"
         case 1:
             category = categoryArray[row]
             reloadGraph(category: category, year: Int(year)!)
@@ -197,6 +209,23 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         benefits = getBenefitFromRealm(category: category, year: year)
         
         setLineGraph()
+    }
+    
+    func getAllBenefit(year: String) -> Int {
+        let yearBenefits = realm.objects(Benefit.self).filter("year == '\(year)'")
+        var stringBenefits = [String]()
+        for benefit in yearBenefits {
+            stringBenefits.append(benefit.benefit!)
+        }
+        var intBenefits = [Int]()
+        for stringBenefit in stringBenefits {
+            intBenefits.append(Int(stringBenefit)!)
+        }
+        var result: Int = 0
+        for intBenefit in intBenefits {
+            result += intBenefit
+        }
+        return result
     }
 
 }
