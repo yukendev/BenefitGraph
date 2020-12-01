@@ -22,8 +22,13 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     let months: [Double] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let monthsString: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     var benefits: [Int] = [12, 14, 2778, 59, 49, 35090, 12, 3432, 43, 243, 123, 126]
-    let exampleArray1: [String] = ["2018", "2019", "2020"]
-    let exampleArray2: [String] = ["アフィリエイト", "アドセンス"]
+//    let exampleArray1: [String] = ["2018", "2019", "2020"]
+//    let exampleArray2: [String] = ["アフィリエイト", "アドセンス"]
+    var year = String()
+    var category = String()
+    
+    var yearArray = [String]()
+    var categoryArray = [String]()
     
     let realm = try! Realm()
     
@@ -42,9 +47,12 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        benefits = getBenefitFromRealm(category: "all", year: 2019)
+        getYearAndCategory()
         
-        setLineGraph()
+        category = categoryArray[0]
+        year = yearArray[0]
+        
+        reloadGraph(category: category, year: Int(year)!)
     }
     
     func setLineGraph(){
@@ -87,7 +95,7 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     func getBenefitFromRealm(category: String, year: Int) -> [Int] {
         switch category {
-        case "all":
+        case "全て":
             var allBenefits = [Int]()
             for month in monthsString {
                 let monthBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)'")
@@ -112,8 +120,22 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             }
             return allBenefits
         default:
-            print("エラーです")
-            return [0]
+            var allBenefits = [Int]()
+            for month in monthsString {
+                let monthCategoryBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
+                if monthCategoryBenefit.count == 0 {
+                    allBenefits.append(0)
+                    print("\(year)年 \(month)月の\(category)の利益は0円です")
+                }else{
+                    var stringBenefit = String()
+                    for benefit in monthCategoryBenefit {
+                        stringBenefit = benefit.benefit!
+                    }
+                    allBenefits.append(Int(stringBenefit)!)
+                    print("\(year)年 \(month)月の\(category)の利益は\(stringBenefit)円です")
+                }
+            }
+            return allBenefits
         }
     }
     
@@ -124,9 +146,9 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case 0:
-            return exampleArray1.count
+            return yearArray.count
         case 1:
-            return exampleArray2.count
+            return categoryArray.count
         default:
             return 0
         }
@@ -135,13 +157,46 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.tag {
         case 0:
-            return exampleArray1[row]
+            return yearArray[row]
         case 1:
-            return exampleArray2[row]
+            return categoryArray[row]
         default:
             return nil
         }
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView.tag {
+        case 0:
+            year = yearArray[row]
+            reloadGraph(category: category, year: Int(year)!)
+        case 1:
+            category = categoryArray[row]
+            reloadGraph(category: category, year: Int(year)!)
+        default:
+            print("エラーです")
+        }
+    }
+    
+    func getYearAndCategory() {
+        yearArray = []
+        categoryArray = ["全て"]
+        let yearIntArray = getFromRealm()
+        for year in yearIntArray {
+            yearArray.append(String(year))
+        }
+        let resultArray = realm.objects(Category.self)
+        for category in resultArray {
+            categoryArray.append(category.categoryName!)
+        }
+        yearPickerView.reloadAllComponents()
+        categoryPickerView.reloadAllComponents()
+    }
+    
+    func reloadGraph(category: String, year: Int) {
+        benefits = getBenefitFromRealm(category: category, year: year)
+        
+        setLineGraph()
+    }
 
 }
