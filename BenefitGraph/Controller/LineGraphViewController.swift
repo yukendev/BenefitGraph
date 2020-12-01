@@ -12,18 +12,28 @@ import RealmSwift
 
 
 
-class LineGraphViewController: UIViewController {
+class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     
     @IBOutlet weak var lineChart: LineChartView!
+    @IBOutlet weak var yearPickerView: UIPickerView!
+    @IBOutlet weak var categoryPickerView: UIPickerView!
     
     let months: [Double] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let monthsString: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     var benefits: [Int] = [12, 14, 2778, 59, 49, 35090, 12, 3432, 43, 243, 123, 126]
+    let exampleArray1: [String] = ["2018", "2019", "2020"]
+    let exampleArray2: [String] = ["アフィリエイト", "アドセンス"]
     
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        yearPickerView.delegate = self
+        yearPickerView.dataSource = self
+        categoryPickerView.delegate = self
+        categoryPickerView.dataSource = self
         
         setLineGraph()
 
@@ -104,6 +114,32 @@ class LineGraphViewController: UIViewController {
         default:
             print("エラーです")
             return [0]
+        }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch pickerView.tag {
+        case 0:
+            return exampleArray1.count
+        case 1:
+            return exampleArray2.count
+        default:
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch pickerView.tag {
+        case 0:
+            return exampleArray1[row]
+        case 1:
+            return exampleArray2[row]
+        default:
+            return nil
         }
     }
     
