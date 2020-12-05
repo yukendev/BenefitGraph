@@ -31,7 +31,7 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
         super.awakeFromNib()
         
         cellContainer.layer.borderWidth = 1.0
-        cellContainer.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        cellContainer.layer.borderColor = UIColor.gray.cgColor
         cellContainer.layer.cornerRadius = 3
         
         tableView.delegate = self

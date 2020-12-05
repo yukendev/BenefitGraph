@@ -14,6 +14,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
     
     var monthArray: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let yearMonthArray = [String]()
@@ -22,6 +23,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     var detailMonth = String()
     let noDataLabel = UILabel()
     let realm = try! Realm()
+    let refreshCtl = UIRefreshControl()
     
 
     override func viewDidLoad() {
@@ -34,6 +36,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.register(UINib(nibName: "CustomViewCell1", bundle: nil), forCellReuseIdentifier: "CustomCell1")
         
+        tableView.refreshControl = refreshCtl
+        refreshCtl.addTarget(self, action: #selector(self.refreshTable), for: UIControl.Event.valueChanged)
+        tableView.refreshControl = refreshCtl
+        
         addButton.adjustsImageWhenHighlighted = false
         addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
         addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
@@ -45,8 +51,21 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         noDataLabel.center = self.view.center
         self.view.addSubview(noDataLabel)
         
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
+        
+        
         
     }
+    
+    @objc func refreshTable() {
+        refreshCtl.endRefreshing()
+        tableView.reloadData()
+        print("リフレッシュ！")
+        }
     
     @objc func pushButton_Animation(_ sender: UIButton){
         UIView.animate(withDuration: 0.1, animations:{ () -> Void in

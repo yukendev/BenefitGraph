@@ -19,6 +19,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var categoryArray = [String]()
     var moneyArray = [String]()
     
+    @IBOutlet weak var headerView: UIView!
     var year = String()
     var month = String()
     
@@ -37,6 +38,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.register(UINib(nibName: "CustomViewCell3", bundle: nil), forCellReuseIdentifier: "CustomCell3")
         tableView.separatorStyle = .none
         
+        
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
         
 
     }

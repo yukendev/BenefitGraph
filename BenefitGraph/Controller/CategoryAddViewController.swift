@@ -18,6 +18,7 @@ class CategoryAddViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,12 @@ class CategoryAddViewController: UIViewController, UITextFieldDelegate {
         textField.delegate = self
         
         addButton.layer.cornerRadius = 5
+        
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
         
     }
     

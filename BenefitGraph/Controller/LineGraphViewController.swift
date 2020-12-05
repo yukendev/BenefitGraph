@@ -21,6 +21,7 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var yearContainer: UIView!
     @IBOutlet weak var categoryContainer: UIView!
     @IBOutlet weak var benefitLabel: UILabel!
+    @IBOutlet weak var headerView: UIView!
     
     let months: [Double] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let monthsString: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
@@ -45,6 +46,12 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         categoryPickerView.dataSource = self
         yearContainer.layer.cornerRadius = 10
         categoryContainer.layer.cornerRadius = 10
+        
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
 
     }
     

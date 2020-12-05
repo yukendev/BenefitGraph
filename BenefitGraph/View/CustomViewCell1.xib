@@ -37,6 +37,7 @@
                                 </constraints>
                             </tableView>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ff2-iE-OMk" firstAttribute="centerX" secondItem="Aba-q9-dBk" secondAttribute="centerX" id="24x-SG-5cl"/>
                             <constraint firstItem="0KJ-fw-Zkg" firstAttribute="leading" secondItem="Aba-q9-dBk" secondAttribute="leading" id="5Uq-ay-l17"/>
@@ -48,6 +49,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Aba-q9-dBk" secondAttribute="trailing" constant="5" id="5GS-XA-qXG"/>
                     <constraint firstAttribute="bottom" secondItem="Aba-q9-dBk" secondAttribute="bottom" constant="5" id="BQq-Ci-cbF"/>

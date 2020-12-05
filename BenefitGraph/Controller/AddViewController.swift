@@ -26,6 +26,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     @IBOutlet weak var categoryPickerView: UIPickerView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
     
     var yearArray = [String]()
     var monthArray: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
@@ -60,6 +61,12 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
         
         addButton.layer.cornerRadius = 5
+        
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
         
 
     }

@@ -14,6 +14,7 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var yearPickerView: UIPickerView!
+    @IBOutlet weak var headerView: UIView!
     
     var yearArray = [String]()
     var categoryArray = [String]()
@@ -30,6 +31,12 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         yearPickerView.delegate = self
         yearPickerView.dataSource = self
+        
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
 
     }
     

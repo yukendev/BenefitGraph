@@ -13,6 +13,7 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
     
     var categoryArray = [String]()
     
@@ -33,6 +34,12 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
         
         addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
         addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
+        
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
     }
     
     override func viewWillAppear(_ animated: Bool) {

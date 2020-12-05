@@ -21,6 +21,7 @@ class EditViewController: UIViewController {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var moneyTextField: UITextField!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
     
     let realm = try! Realm()
 
@@ -28,6 +29,12 @@ class EditViewController: UIViewController {
         super.viewDidLoad()
         
         editButton.layer.cornerRadius = 5
+        
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        
+        headerView.layer.addSublayer(bottomLayer)
         
 
     }
