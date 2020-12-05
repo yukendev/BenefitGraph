@@ -15,13 +15,12 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var yearPickerView: UIPickerView!
     
-    let yearArray: [String] = ["2019", "2020"]
+    var yearArray = [String]()
     var categoryArray = [String]()
     var benefitArray = [String]()
     var intBenefitArray = [Int]()
-    
+    var finalBenefits = [Int]()
     let realm = try! Realm()
-    
     
 
     override func viewDidLoad() {
@@ -35,16 +34,24 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        setCategoryArray()
+        yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
         
-        setPieChart()
+        setYearArray()
+        
+        setBenefit(year: "2020")
     }
+    
+    
+    
+    
+    
+    
     
     func setPieChart() {
         var dataEntries: [ChartDataEntry] = []
         
-        for i in 0..<months.count {
-            dataEntries.append(PieChartDataEntry(value: Double(benefits[i]), label: monthsString[i] + "月", data: benefits[i]))
+        for i in 0..<categoryArray.count {
+            dataEntries.append(PieChartDataEntry(value: Double(finalBenefits[i]), label: categoryArray[i], data: finalBenefits[i]))
         }
         
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Units Sold")
@@ -53,6 +60,14 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         pieChartDataSet.colors = ChartColorTemplates.material()
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -67,27 +82,69 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return yearArray[row]
     }
     
-    func getBenefitFromRealm(year: String) {
-        for category in categoryArray {
-            intBenefitArray = []
-            let categoryBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND category == '\(category)'")
-            if categoryBenefit.count == 0 {
-                intBenefitArray.append(0)
-                print("\(year)年の\(category)の利益は0円です")
-            }else{
-                let intBenefit = Int(categoryBenefit[0].benefit!)!
-                intBenefitArray.append(intBenefit)
-                print("\(year)年の\(category)の利益は\(intBenefit)円です")
-            }
-        }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("\(yearArray[row])年の利益です")
+        setBenefit(year: yearArray[row])
     }
     
-    func setCategoryArray() {
+    func setBenefit(year: String) {
         categoryArray = []
+        benefitArray = []
+        intBenefitArray = []
+        finalBenefits = []
         let categoryArrayFromRealm = realm.objects(Category.self)
         for category in categoryArrayFromRealm {
             categoryArray.append(category.categoryName!)
         }
+        for category in categoryArray {
+            var finalResult = 0
+            let benefitArrayResult = realm.objects(Benefit.self).filter("year == '\(year)' AND category == '\(category)'")
+            if benefitArrayResult.count == 0 {
+                print("この年の\(category)の利益は0円です")
+                finalBenefits.append(0)
+            }else{
+                for benefit in benefitArrayResult {
+                    benefitArray.append(benefit.benefit!)
+                }
+                for benefit in benefitArray {
+                    intBenefitArray.append(Int(benefit)!)
+                }
+                for intBenefit in intBenefitArray {
+                    finalResult += intBenefit
+                }
+                print("この年の\(category)の利益は\(finalResult)円です")
+                finalBenefits.append(finalResult)
+            }
+        }
+        setPieChart()
+    }
+    
+    func setYearArray() {
+        var resultArray: [String] = []
+        var intResultArray: [Int] = []
+        let benefitArray = realm.objects(Benefit.self)
+        for benefit in benefitArray {
+            resultArray.append(benefit.year!)
+        }
+        resultArray = arrayFilter(array: resultArray)
+        for result in resultArray {
+            intResultArray.append(Int(result)!)
+        }
+        intResultArray.sort { $0 < $1 }
+        resultArray = []
+        for intResult in intResultArray {
+            resultArray.append(String(intResult))
+        }
+        
+        yearArray = resultArray
+    }
+    
+    func arrayFilter(array: [String]) -> [String] {
+        let result = NSOrderedSet(array: array)
+        let anyArray = result.array
+        let resultArray: [String] = anyArray.map {$0 as! String}
+          
+        return resultArray
     }
     
 }
