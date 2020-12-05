@@ -60,7 +60,7 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        showAlert(title: "本当に削除しますか？", type: "delete", category: categoryArray[indexPath.row])
+        showAlert(title: "このカテゴリーを削除すると、属する全ての記録が消えます。本当に削除しますか？", type: "delete", category: categoryArray[indexPath.row])
 
     }
     
@@ -110,8 +110,10 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
         }else{
             let newCategories = realm.objects(Category.self).filter("categoryName != '\(category)'")
             let deletedCategory = realm.objects(Category.self).filter("categoryName == '\(category)'")
+            let deletedBenefit = realm.objects(Benefit.self).filter("category == '\(category)'")
             try! realm.write{
                 realm.delete(deletedCategory)
+                realm.delete(deletedBenefit)
             }
             categoryArray = []
             for category in newCategories {
