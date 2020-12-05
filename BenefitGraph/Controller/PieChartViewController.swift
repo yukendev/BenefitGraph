@@ -20,6 +20,7 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var benefitArray = [String]()
     var intBenefitArray = [Int]()
     var finalBenefits = [Int]()
+    var totalBenefit = Int()
     let realm = try! Realm()
     
 
@@ -34,9 +35,9 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
-        
         setYearArray()
+        
+        yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
         
         setBenefit(year: "2020")
     }
@@ -47,18 +48,33 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     
-    func setPieChart() {
+    func setPieChart(year: String) {
         var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<categoryArray.count {
             dataEntries.append(PieChartDataEntry(value: Double(finalBenefits[i]), label: categoryArray[i], data: finalBenefits[i]))
         }
         
-        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Units Sold")
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "利益")
+        pieChartDataSet.valueTextColor = UIColor.black
+        pieChartDataSet.entryLabelColor = UIColor.black
         pieChart.data = PieChartData(dataSet: pieChartDataSet)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 1.0
+
+        pieChart.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+        pieChart.usePercentValuesEnabled = true
 
         
-        pieChartDataSet.colors = ChartColorTemplates.material()
+        pieChartDataSet.colors = ChartColorTemplates.vordiplom()
+        pieChart.drawHoleEnabled = true
+        pieChart.legend.enabled = false
+        
+        pieChart.centerText = "\(year)年\n\(totalBenefit)円"
+        
     }
     
     
@@ -83,20 +99,23 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("\(yearArray[row])年の利益です")
+//        print("\(yearArray[row])年の利益です")
         setBenefit(year: yearArray[row])
     }
     
     func setBenefit(year: String) {
         categoryArray = []
-        benefitArray = []
-        intBenefitArray = []
         finalBenefits = []
+        totalBenefit = 0
         let categoryArrayFromRealm = realm.objects(Category.self)
         for category in categoryArrayFromRealm {
             categoryArray.append(category.categoryName!)
         }
+        print("これが全てのカテゴリーや！")
+        print(categoryArray)
         for category in categoryArray {
+            benefitArray = []
+            intBenefitArray = []
             var finalResult = 0
             let benefitArrayResult = realm.objects(Benefit.self).filter("year == '\(year)' AND category == '\(category)'")
             if benefitArrayResult.count == 0 {
@@ -106,6 +125,8 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 for benefit in benefitArrayResult {
                     benefitArray.append(benefit.benefit!)
                 }
+                print("ここで少しチェック!")
+                print(benefitArray)
                 for benefit in benefitArray {
                     intBenefitArray.append(Int(benefit)!)
                 }
@@ -115,8 +136,9 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 print("この年の\(category)の利益は\(finalResult)円です")
                 finalBenefits.append(finalResult)
             }
+            totalBenefit += finalResult
         }
-        setPieChart()
+        setPieChart(year: year)
     }
     
     func setYearArray() {

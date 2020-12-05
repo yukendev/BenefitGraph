@@ -74,6 +74,9 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
         
         let dataset = LineChartDataSet(entries: entry,label: "Units Sold")
+        
+//        dataset.colors = [NSUIColor.red]
+//        dataset.circleColors = [NSUIColor.red]
                 
         lineChart.data = LineChartData(dataSet: dataset)
         lineChart.chartDescription?.text = "Item Sold Chart"
