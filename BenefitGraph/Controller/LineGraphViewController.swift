@@ -32,6 +32,7 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     var yearArray = [String]()
     var categoryArray = [String]()
+//    var dataExist = Bool()
     
     let realm = try! Realm()
     
@@ -54,14 +55,24 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         
         getYearAndCategory()
         
-        category = categoryArray[0]
-        year = yearArray[yearArray.count - 1]
-        
-        reloadGraph(category: category, year: Int(year)!)
-        benefitLabel.text = "\(getAllBenefit(year: year))" + "円"
-        
-        yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
-        categoryPickerView.selectRow(0, inComponent: 0, animated: true)
+        if yearArray.count == 0 {
+//            dataExist = false
+            benefitLabel.text = "データなしですね"
+//            yearPickerView.reloadAllComponents()
+//            categoryPickerView.reloadAllComponents()
+        }else{
+//            dataExist = true
+//            yearPickerView.reloadAllComponents()
+//            categoryPickerView.reloadAllComponents()
+            category = categoryArray[0]
+            year = yearArray[yearArray.count - 1]
+            
+            reloadGraph(category: category, year: Int(year)!)
+            benefitLabel.text = "\(getAllBenefit(year: year))" + "円"
+            
+            yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
+            categoryPickerView.selectRow(0, inComponent: 0, animated: true)
+        }
     }
     
     func setLineGraph(label: String){
@@ -73,6 +84,7 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         
         let dataset = LineChartDataSet(entries: entry,label: label)
         dataset.valueFormatter = LineChartValueFormatter()
+        dataset.valueFont = UIFont.systemFont(ofSize: 12)
         
         let formatter = NumberFormatter()
         formatter.allowsFloats = false
@@ -84,11 +96,13 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         lineChart.doubleTapToZoomEnabled = false
         lineChart.dragEnabled = false
         
+        
         lineChart.xAxis.labelPosition = .bottom
         lineChart.xAxis.labelCount = Int(11)
         lineChart.xAxis.axisLineWidth = CGFloat(2)
         lineChart.xAxis.valueFormatter = LineChartFormatter()
         lineChart.xAxis.drawGridLinesEnabled = false
+        lineChart.xAxis.labelFont = UIFont.systemFont(ofSize: 11)
         
         //yの最低値を0に設定
         lineChart.rightAxis.axisMinimum = 0.0
@@ -182,9 +196,19 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case 0:
-            return yearArray.count
+            if yearArray.count != 0 {
+                print("yearArrayのnumberOfRowsInComponent")
+                return yearArray.count
+            }else{
+                return 1
+            }
         case 1:
-            return categoryArray.count
+            if yearArray.count != 0 {
+                print("categoryArrayのnumberOfRowsInComponent")
+                return categoryArray.count
+            }else{
+                return 1
+            }
         default:
             return 0
         }
@@ -193,9 +217,19 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.tag {
         case 0:
-            return yearArray[row]
+            if yearArray.count != 0 {
+                print("yearArrayのtitleForRow")
+                return yearArray[row]
+            }else{
+                return "データなし"
+            }
         case 1:
-            return categoryArray[row]
+            if yearArray.count != 0 {
+                print("categoryArrayのtitleForRow")
+                return categoryArray[row]
+            }else{
+                return "データなし"
+            }
         default:
             return nil
         }
@@ -204,12 +238,20 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
         case 0:
-            year = yearArray[row]
-            reloadGraph(category: category, year: Int(year)!)
-            benefitLabel.text = "\(getAllBenefit(year: year))" + "円"
+            if yearArray.count != 0 {
+                year = yearArray[row]
+                reloadGraph(category: category, year: Int(year)!)
+                benefitLabel.text = "\(getAllBenefit(year: year))" + "円"
+            }else{
+                print("データなし2")
+            }
         case 1:
-            category = categoryArray[row]
-            reloadGraph(category: category, year: Int(year)!)
+            if yearArray.count != 0 {
+                category = categoryArray[row]
+                reloadGraph(category: category, year: Int(year)!)
+            }else{
+                print("データなし")
+            }
         default:
             print("エラーです")
         }
@@ -228,6 +270,9 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
         yearPickerView.reloadAllComponents()
         categoryPickerView.reloadAllComponents()
+        print("この時の配列は")
+        print(yearArray)
+        print(categoryArray)
     }
     
     func reloadGraph(category: String, year: Int) {

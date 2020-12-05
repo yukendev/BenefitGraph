@@ -21,6 +21,7 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var intBenefitArray = [Int]()
     var finalBenefits = [Int]()
     var totalBenefit = Int()
+//    var dataExist = Bool()
     let realm = try! Realm()
     
 
@@ -37,9 +38,12 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         setYearArray()
         
-        yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
-        
-        setBenefit(year: "2020")
+        if yearArray.count == 0 {
+            print("データなし")
+        }else{
+            yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
+            setBenefit(year: yearArray[yearArray.count - 1])
+        }
     }
     
     
@@ -91,16 +95,27 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return yearArray.count
+        if yearArray.count != 0 {
+            return yearArray.count
+        }else{
+            return 1
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return yearArray[row]
+        if yearArray.count != 0 {
+            return yearArray[row]
+        }else{
+            return "データなし"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        print("\(yearArray[row])年の利益です")
-        setBenefit(year: yearArray[row])
+        if yearArray.count != 0 {
+            setBenefit(year: yearArray[row])
+        }else{
+            print("データなし")
+        }
     }
     
     func setBenefit(year: String) {
