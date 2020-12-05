@@ -167,6 +167,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
 
     @IBAction func backAction(_ sender: Any) {
+        tableViewReloadDelegate?.tableViewReload()
         dismiss(animated: true, completion: nil)
     }
     

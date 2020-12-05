@@ -100,7 +100,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.tableView.reloadData()
         
         
+        
         cell.selectionStyle = .none
+        
+        cell.setHeight()
         
         cell.delegate = self
         

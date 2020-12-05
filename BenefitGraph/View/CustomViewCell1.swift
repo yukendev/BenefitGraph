@@ -14,7 +14,10 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var cellContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var noDataLabel: UILabel!
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
+    
+    
     
     var categoryArray = [String]()
     var moneyArray = [String]()
@@ -72,6 +75,14 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+    }
+    
+    func setHeight() {
+        if moneyArray.count >= 3 {
+            tableViewHeight.constant = 200
+        }else{
+            tableViewHeight.constant = CGFloat(tableView.contentSize.height + 40)
+        }
     }
     
 }

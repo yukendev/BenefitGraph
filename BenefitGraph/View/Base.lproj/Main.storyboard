@@ -491,7 +491,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku5-Pc-cLS">
                                 <rect key="frame" x="344" y="128" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="plus"/>
+                                <state key="normal" image="plus2"/>
                                 <connections>
                                     <action selector="addAction:" destination="K8W-zm-eww" eventType="touchUpInside" id="7CQ-OW-xK4"/>
                                 </connections>
@@ -505,7 +505,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OXe-b1-xKv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.94955903289999999" green="0.94844001529999999" blue="0.96941095590000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="記録" image="doc" catalog="system" id="aMX-5g-7ws"/>
                     <connections>
@@ -540,13 +540,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ZZU-ho-bLV"/>
+        <segue reference="mQw-cO-9O4"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chart.bar" catalog="system" width="128" height="90"/>
         <image name="chart.pie" catalog="system" width="128" height="121"/>
         <image name="doc" catalog="system" width="115" height="128"/>
-        <image name="plus" width="1280" height="1280"/>
+        <image name="plus2" width="1280" height="1280"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
