@@ -44,8 +44,6 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         categoryPickerView.dataSource = self
         yearContainer.layer.cornerRadius = 10
         categoryContainer.layer.cornerRadius = 10
-        
-        setLineGraph()
 
     }
     
@@ -66,20 +64,44 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         categoryPickerView.selectRow(0, inComponent: 0, animated: true)
     }
     
-    func setLineGraph(){
+    func setLineGraph(label: String){
         var entry = [ChartDataEntry]()
         
         for (i,d) in benefits.enumerated(){
-            entry.append(ChartDataEntry(x: months[i],y: Double(d)))
+            entry.append(ChartDataEntry(x: Double(i),y: Double(d)))
         }
         
-        let dataset = LineChartDataSet(entries: entry,label: "Units Sold")
+        let dataset = LineChartDataSet(entries: entry,label: label)
+        dataset.valueFormatter = LineChartValueFormatter()
         
-//        dataset.colors = [NSUIColor.red]
-//        dataset.circleColors = [NSUIColor.red]
+        let formatter = NumberFormatter()
+        formatter.allowsFloats = false
+        formatter.minimumFractionDigits = 0
+        lineChart.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
                 
         lineChart.data = LineChartData(dataSet: dataset)
-        lineChart.chartDescription?.text = "Item Sold Chart"
+        lineChart.pinchZoomEnabled = false
+        lineChart.doubleTapToZoomEnabled = false
+        lineChart.dragEnabled = false
+        
+        lineChart.xAxis.labelPosition = .bottom
+        lineChart.xAxis.labelCount = Int(11)
+        lineChart.xAxis.axisLineWidth = CGFloat(2)
+        lineChart.xAxis.valueFormatter = LineChartFormatter()
+        lineChart.xAxis.drawGridLinesEnabled = false
+        
+        //yの最低値を0に設定
+        lineChart.rightAxis.axisMinimum = 0.0
+        lineChart.leftAxis.axisMinimum = 0.0
+
+        //y軸のラベルを整数値にする処理。
+        lineChart.rightAxis.granularityEnabled = true
+        lineChart.leftAxis.granularityEnabled = true
+        lineChart.rightAxis.granularity = 1.0
+        lineChart.leftAxis.granularity = 1.0
+        lineChart.leftAxis.axisLineWidth = CGFloat(2)
+        lineChart.leftAxis.drawGridLinesEnabled = false
+        lineChart.rightAxis.drawGridLinesEnabled = false
     }
     
     func getFromRealm() -> [Int] {
@@ -211,7 +233,7 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     func reloadGraph(category: String, year: Int) {
         benefits = getBenefitFromRealm(category: category, year: year)
         
-        setLineGraph()
+        setLineGraph(label: category)
     }
     
     func getAllBenefit(year: String) -> Int {
@@ -230,5 +252,20 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
         return result
     }
+    
+    
 
+}
+
+public class LineChartValueFormatter: NSObject, IValueFormatter{
+    public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String{
+        return String(Int(entry.y))
+    }
+}
+
+public class LineChartFormatter: NSObject, IAxisValueFormatter{
+    var months: [String]! = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return months[Int(value)]
+    }
 }
