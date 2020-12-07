@@ -22,18 +22,20 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var categoryContainer: UIView!
     @IBOutlet weak var benefitLabel: UILabel!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var categoryContainerBottom: NSLayoutConstraint!
+    @IBOutlet weak var yearContainerBottom: NSLayoutConstraint!
+    
     
     let months: [Double] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let monthsString: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     var benefits: [Int] = [12, 14, 2778, 59, 49, 35090, 12, 3432, 43, 243, 123, 126]
-//    let exampleArray1: [String] = ["2018", "2019", "2020"]
-//    let exampleArray2: [String] = ["アフィリエイト", "アドセンス"]
     var year = String()
     var category = String()
     
     var yearArray = [String]()
     var categoryArray = [String]()
-//    var dataExist = Bool()
     
     let realm = try! Realm()
     
@@ -48,10 +50,22 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         categoryContainer.layer.cornerRadius = 10
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
         
         headerView.layer.addSublayer(bottomLayer)
+        
+        if self.view.frame.height >= 700 {
+            print("viewが高い")
+            categoryContainerBottom.constant = 50
+            yearContainerBottom.constant = 50
+        }else{
+            print("viewが低い")
+            categoryContainerBottom.constant = 20
+            yearContainerBottom.constant = 20
+            headerViewHeight.constant = self.view.frame.height * 114/896
+        }
+        
 
     }
     
@@ -63,14 +77,8 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         getYearAndCategory()
         
         if yearArray.count == 0 {
-//            dataExist = false
-            benefitLabel.text = "データなしですね"
-//            yearPickerView.reloadAllComponents()
-//            categoryPickerView.reloadAllComponents()
+            benefitLabel.text = "データなし"
         }else{
-//            dataExist = true
-//            yearPickerView.reloadAllComponents()
-//            categoryPickerView.reloadAllComponents()
             category = categoryArray[0]
             year = yearArray[yearArray.count - 1]
             

@@ -27,6 +27,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
+    
+    
     
     var yearArray = [String]()
     var monthArray: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
@@ -63,10 +66,14 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         addButton.layer.cornerRadius = 5
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
         
         headerView.layer.addSublayer(bottomLayer)
+        
+        if self.view.frame.height <= 700 {
+            headerViewHeight.constant = self.view.frame.height * 114/896
+        }
         
 
     }

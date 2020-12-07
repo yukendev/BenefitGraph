@@ -59,7 +59,7 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
         cell.selectionStyle = .none
         
         cell.categoryLabel.text = categoryArray[indexPath.row]
-        cell.moneyLabel.text = moneyArray[indexPath.row]
+        cell.moneyLabel.text = moneyArray[indexPath.row] + "円"
         
         
         

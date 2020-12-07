@@ -15,6 +15,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     var monthArray: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let yearMonthArray = [String]()
@@ -52,10 +53,14 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(noDataLabel)
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
         
         headerView.layer.addSublayer(bottomLayer)
+        
+        if self.view.frame.height <= 700 {
+            headerViewHeight.constant = self.view.frame.height * 114/896
+        }
         
         
         
@@ -85,6 +90,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(true)
         
         print("viewWillAppear発動")
+        print(self.view.frame.height)
+//        896
+        print(headerView.frame.height)
+//        114
         getFromRealm()
         noDataLabelisHidden()
     }

@@ -14,6 +14,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     
     var categoryArray = [String]()
@@ -40,18 +41,21 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
         
         headerView.layer.addSublayer(bottomLayer)
         
+        if self.view.frame.height <= 700 {
+            headerViewHeight.constant = self.view.frame.height * 114/896
+        }
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        detailLabel.text = year + "年　" + month + "月"
+        detailLabel.text = year + "年" + month + "月"
         
         print("さぁ、いくぞ")
         print(year)
@@ -72,7 +76,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell3", for: indexPath) as! CustomViewCell3
         
         cell.categoryLabel.text = categoryArray[indexPath.row]
-        cell.moneyLabel.text = moneyArray[indexPath.row]
+        cell.moneyLabel.text = moneyArray[indexPath.row] + "円"
         
         cell.category = categoryArray[indexPath.row]
         cell.year = year

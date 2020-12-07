@@ -14,6 +14,7 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     var categoryArray = [String]()
     
@@ -36,10 +37,15 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
         addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
         
         headerView.layer.addSublayer(bottomLayer)
+        
+        
+        if self.view.frame.height <= 700 {
+            headerViewHeight.constant = self.view.frame.height * 114/896
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

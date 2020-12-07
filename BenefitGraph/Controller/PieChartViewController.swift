@@ -12,9 +12,11 @@ import RealmSwift
 class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
+    @IBOutlet weak var yearContainer: UIView!
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var yearPickerView: UIPickerView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     var yearArray = [String]()
     var categoryArray = [String]()
@@ -33,10 +35,16 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         yearPickerView.dataSource = self
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: headerView.frame.height, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
+        yearContainer.layer.cornerRadius = 10
         
         headerView.layer.addSublayer(bottomLayer)
+        
+        
+        if self.view.safeAreaInsets.top == 0 {
+            headerViewHeight.constant = self.view.frame.height * 114/896
+        }
 
     }
     
