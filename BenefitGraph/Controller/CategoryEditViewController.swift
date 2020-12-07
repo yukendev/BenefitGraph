@@ -93,6 +93,11 @@ class CategoryEditViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        
+        return "削除"
+    }
+    
     
     
     @IBAction func addAction(_ sender: Any) {

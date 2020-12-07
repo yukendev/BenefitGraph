@@ -97,6 +97,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         showAlert(category: categoryArray[indexPath.row])
     }
     
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        
+        return "削除"
+    }
+    
     func getFromRealm() {
         categoryArray = []
         moneyArray = []

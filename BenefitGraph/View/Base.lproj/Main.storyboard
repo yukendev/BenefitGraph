@@ -421,10 +421,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y49-87-7pI">
-                                        <rect key="frame" x="126.5" y="291" width="121" height="63"/>
+                                        <rect key="frame" x="126.5" y="291" width="121" height="50"/>
                                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="63" id="IZc-rE-BxK"/>
+                                            <constraint firstAttribute="height" constant="50" id="IZc-rE-BxK"/>
                                             <constraint firstAttribute="width" constant="121" id="eSb-jJ-Das"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
@@ -963,7 +963,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mQw-cO-9O4"/>
+        <segue reference="ZZU-ho-bLV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chart.bar" catalog="system" width="128" height="90"/>
