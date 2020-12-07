@@ -25,6 +25,7 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var finalBenefits = [Int]()
     var totalBenefit = Int()
 //    var dataExist = Bool()
+    let noDataLabel = UILabel()
     let realm = try! Realm()
     
 
@@ -45,6 +46,12 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if self.view.safeAreaInsets.top == 0 {
             headerViewHeight.constant = self.view.frame.height * 114/896
         }
+        
+        noDataLabel.text = "No chart data available"
+        noDataLabel.frame = CGRect(x: 0, y: 0, width: 175, height: 30)
+//        noDataLabel.backgroundColor = UIColor.gray
+        noDataLabel.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/3)
+        self.view.addSubview(noDataLabel)
 
     }
     
@@ -55,7 +62,11 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         if yearArray.count == 0 {
             print("データなし")
+            pieChart.isHidden = true
+            noDataLabel.isHidden = false
         }else{
+            pieChart.isHidden = false
+            noDataLabel.isHidden = true
             yearPickerView.selectRow(yearArray.count - 1, inComponent: 0, animated: true)
             setBenefit(year: yearArray[yearArray.count - 1])
         }

@@ -30,12 +30,14 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     let months: [Double] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let monthsString: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-    var benefits: [Int] = [12, 14, 2778, 59, 49, 35090, 12, 3432, 43, 243, 123, 126]
+    var benefits: [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var year = String()
     var category = String()
     
     var yearArray = [String]()
     var categoryArray = [String]()
+    
+    let noDataLabel = UILabel()
     
     let realm = try! Realm()
     
@@ -66,6 +68,14 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             headerViewHeight.constant = self.view.frame.height * 114/896
         }
         
+        
+        noDataLabel.text = "No chart data available"
+        noDataLabel.frame = CGRect(x: 0, y: 0, width: 175, height: 30)
+//        noDataLabel.backgroundColor = UIColor.gray
+        noDataLabel.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/3)
+        self.view.addSubview(noDataLabel)
+        
+        
 
     }
     
@@ -77,8 +87,14 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         getYearAndCategory()
         
         if yearArray.count == 0 {
+            print("データがないです")
             benefitLabel.text = "データなし"
+            lineChart.isHidden = true
+            noDataLabel.isHidden = false
+            
         }else{
+            lineChart.isHidden = false
+            noDataLabel.isHidden = true
             category = categoryArray[0]
             year = yearArray[yearArray.count - 1]
             

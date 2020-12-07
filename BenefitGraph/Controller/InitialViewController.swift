@@ -46,7 +46,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
         
         noDataLabel.text = "記録がありません"
-        noDataLabel.font = noDataLabel.font.withSize(30)
+        noDataLabel.font = noDataLabel.font.withSize(20)
         noDataLabel.frame = CGRect(x:50,y:50,width: 250,height:250)
         noDataLabel.textAlignment = .center
         noDataLabel.center = self.view.center
