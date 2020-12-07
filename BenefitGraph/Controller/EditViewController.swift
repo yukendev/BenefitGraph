@@ -49,12 +49,6 @@ class EditViewController: UIViewController {
         monthLabel.text = editedYear + "年　" + editedMonth + "月"
         categoryLabel.text = editedCategory
         moneyTextField.text = editedMoney
-        
-        print("今からこれを編集します")
-        print(editedYear)
-        print(editedMonth)
-        print(editedCategory)
-        print(editedMoney)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

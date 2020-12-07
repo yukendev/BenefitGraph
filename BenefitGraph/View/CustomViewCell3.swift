@@ -53,7 +53,6 @@ class CustomViewCell3: UITableViewCell {
     }
     
     @IBAction func editAction(_ sender: Any) {
-        print("編集")
         delegate?.toEdit(category: category, year: year, month: month, money: money)
     }
     

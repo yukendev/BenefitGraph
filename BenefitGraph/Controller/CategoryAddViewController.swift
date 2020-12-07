@@ -40,15 +40,6 @@ class CategoryAddViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        print("わしょい")
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
-        
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -70,7 +61,6 @@ class CategoryAddViewController: UIViewController, UITextFieldDelegate {
             if doubleCategory(text: textField.text!) {
                 showAlert(title: "同じ名前のカテゴリーは一つまでです")
             }else{
-//                realmに追加
                 let category = Category()
                 category.categoryName = textField.text
                 try! realm.write{

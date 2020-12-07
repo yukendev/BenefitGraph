@@ -163,16 +163,13 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         case 0:
             switch component {
             case 0:
-                print("年選択")
                 selectedYear = yearArray[row]
             case 1:
-                print("月選択")
                 selectedMonth = monthArray[row]
             default:
                 print("エラー")
             }
         case 1:
-            print("カテゴリー選択")
             selectedCategory = categoryArray[row]
         default:
             print("エラー")
@@ -192,15 +189,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     
     @IBAction func addAction(_ sender: Any) {
-        print(selectedYear)
-        print(selectedMonth)
-        print(selectedCategory)
         if moneyTextField.text == ""{
-            print("空白はダメ")
             showAlert(title: "入力してください", type: "blank")
         }else{
             if isDoubled(year: selectedYear, month: selectedMonth, category: selectedCategory) {
-                print("かぶってるよ")
                 showAlert(title: "同じ月、同じカテゴリーにすでに記録があります。上書きしますか？", type: "double")
             }else{
                 addToRealm()
@@ -300,7 +292,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
 
     func reRecord(year: String, month: String, category: String) {
-        print("上書き保存")
         let deletedBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
         try! realm.write{
             realm.delete(deletedBenefit)
@@ -310,7 +301,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     func updateCategoryArray() {
-        print("大成功！！！")
         setCategoryArray()
         categoryPickerView.reloadAllComponents()
     }

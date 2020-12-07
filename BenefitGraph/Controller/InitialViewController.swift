@@ -69,7 +69,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc func refreshTable() {
         refreshCtl.endRefreshing()
         tableView.reloadData()
-        print("リフレッシュ！")
         }
     
     @objc func pushButton_Animation(_ sender: UIButton){
@@ -88,12 +87,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        print("viewWillAppear発動")
-        print(self.view.frame.height)
-//        896
-        print(headerView.frame.height)
-//        114
         getFromRealm()
         noDataLabelisHidden()
     }
@@ -141,10 +134,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("cellが押されました")
-        
-        
         toDetail(year: String(monthLabelArray[indexPath.row][0]), month: String(monthLabelArray[indexPath.row][1]))
     }
 
@@ -161,7 +150,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableViewReload() {
         getFromRealm()
         noDataLabelisHidden()
-        print("ラジオ成功！")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -189,8 +177,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         yearStringArray = yearIntArray.map({ (yearInt: Int) -> String in
             return String(yearInt)
         })
-        
-        print(yearStringArray)
         sortBenefit(yearArray: yearIntArray)
         
     }
@@ -198,7 +184,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func sortBenefit(yearArray: [Int]) {
         
         monthLabelArray = []
-    
         
         for year in yearArray {
             let benefitArray = realm.objects(Benefit.self).filter("year == '\(String(year))'")
@@ -244,10 +229,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func noDataLabelisHidden() {
         if monthLabelArray.count == 0 {
             noDataLabel.isHidden = false
-            print("ラベルを出す")
         }else{
             noDataLabel.isHidden = true
-            print("ラベルを隠す")
         }
     }
 

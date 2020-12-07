@@ -24,7 +24,6 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var intBenefitArray = [Int]()
     var finalBenefits = [Int]()
     var totalBenefit = Int()
-//    var dataExist = Bool()
     let noDataLabel = UILabel()
     let realm = try! Realm()
     
@@ -49,7 +48,6 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         noDataLabel.text = "No chart data available"
         noDataLabel.frame = CGRect(x: 0, y: 0, width: 175, height: 30)
-//        noDataLabel.backgroundColor = UIColor.gray
         noDataLabel.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/3)
         self.view.addSubview(noDataLabel)
 
@@ -61,7 +59,6 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         setYearArray()
         
         if yearArray.count == 0 {
-            print("データなし")
             pieChart.isHidden = true
             noDataLabel.isHidden = false
         }else{
@@ -152,29 +149,23 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         for category in categoryArrayFromRealm {
             categoryArray.append(category.categoryName!)
         }
-        print("これが全てのカテゴリーや！")
-        print(categoryArray)
         for category in categoryArray {
             benefitArray = []
             intBenefitArray = []
             var finalResult = 0
             let benefitArrayResult = realm.objects(Benefit.self).filter("year == '\(year)' AND category == '\(category)'")
             if benefitArrayResult.count == 0 {
-                print("この年の\(category)の利益は0円です")
                 finalBenefits.append(0)
             }else{
                 for benefit in benefitArrayResult {
                     benefitArray.append(benefit.benefit!)
                 }
-                print("ここで少しチェック!")
-                print(benefitArray)
                 for benefit in benefitArray {
                     intBenefitArray.append(Int(benefit)!)
                 }
                 for intBenefit in intBenefitArray {
                     finalResult += intBenefit
                 }
-                print("この年の\(category)の利益は\(finalResult)円です")
                 finalBenefits.append(finalResult)
             }
             totalBenefit += finalResult

@@ -58,11 +58,9 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         headerView.layer.addSublayer(bottomLayer)
         
         if self.view.frame.height >= 700 {
-            print("viewが高い")
             categoryContainerBottom.constant = 50
             yearContainerBottom.constant = 50
         }else{
-            print("viewが低い")
             categoryContainerBottom.constant = 20
             yearContainerBottom.constant = 20
             headerViewHeight.constant = self.view.frame.height * 114/896
@@ -71,7 +69,6 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         
         noDataLabel.text = "No chart data available"
         noDataLabel.frame = CGRect(x: 0, y: 0, width: 175, height: 30)
-//        noDataLabel.backgroundColor = UIColor.gray
         noDataLabel.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/3)
         self.view.addSubview(noDataLabel)
         
@@ -87,7 +84,6 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         getYearAndCategory()
         
         if yearArray.count == 0 {
-            print("データがないです")
             benefitLabel.text = "データなし"
             lineChart.isHidden = true
             noDataLabel.isHidden = false
@@ -160,9 +156,6 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             yearIntArray.append(Int(stringYear)!)
         }
         yearIntArray.sort { $0 < $1 }
-//        yearStringArray = yearIntArray.map({ (yearInt: Int) -> String in
-//            return String(yearInt)
-//        })
         return yearIntArray
     }
     
@@ -182,7 +175,6 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 let monthBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)'")
                 if monthBenefit.count == 0 {
                     allBenefits.append(0)
-                    print("\(year)年 \(month)月の利益は0円です")
                 }else{
                     var benefitString = [String]()
                     for benefit in monthBenefit {
@@ -196,7 +188,6 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                         result += benefit
                     }
                     allBenefits.append(result)
-                    print("\(year)年 \(month)月の利益は\(result)円です")
                 }
             }
             return allBenefits
@@ -206,14 +197,12 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 let monthCategoryBenefit = realm.objects(Benefit.self).filter("year == '\(year)' AND month == '\(month)' AND category == '\(category)'")
                 if monthCategoryBenefit.count == 0 {
                     allBenefits.append(0)
-                    print("\(year)年 \(month)月の\(category)の利益は0円です")
                 }else{
                     var stringBenefit = String()
                     for benefit in monthCategoryBenefit {
                         stringBenefit = benefit.benefit!
                     }
                     allBenefits.append(Int(stringBenefit)!)
-                    print("\(year)年 \(month)月の\(category)の利益は\(stringBenefit)円です")
                 }
             }
             return allBenefits
@@ -228,14 +217,12 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         switch pickerView.tag {
         case 0:
             if yearArray.count != 0 {
-                print("yearArrayのnumberOfRowsInComponent")
                 return yearArray.count
             }else{
                 return 1
             }
         case 1:
             if yearArray.count != 0 {
-                print("categoryArrayのnumberOfRowsInComponent")
                 return categoryArray.count
             }else{
                 return 1
@@ -249,14 +236,12 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         switch pickerView.tag {
         case 0:
             if yearArray.count != 0 {
-                print("yearArrayのtitleForRow")
                 return yearArray[row]
             }else{
                 return "データなし"
             }
         case 1:
             if yearArray.count != 0 {
-                print("categoryArrayのtitleForRow")
                 return categoryArray[row]
             }else{
                 return "データなし"
@@ -274,7 +259,7 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 reloadGraph(category: category, year: Int(year)!)
                 benefitLabel.text = "\(getAllBenefit(year: year))" + "円"
             }else{
-                print("データなし2")
+                print("データなし")
             }
         case 1:
             if yearArray.count != 0 {
@@ -301,9 +286,6 @@ class LineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
         yearPickerView.reloadAllComponents()
         categoryPickerView.reloadAllComponents()
-        print("この時の配列は")
-        print(yearArray)
-        print(categoryArray)
     }
     
     func reloadGraph(category: String, year: Int) {

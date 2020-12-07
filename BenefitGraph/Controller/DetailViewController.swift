@@ -56,10 +56,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewWillAppear(true)
         
         detailLabel.text = year + "年" + month + "月"
-        
-        print("さぁ、いくぞ")
-        print(year)
-        print(month)
         getFromRealm()
     }
     
@@ -92,8 +88,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        print("\(categoryArray[indexPath.row])を消します")
         showAlert(category: categoryArray[indexPath.row])
     }
     
@@ -111,10 +105,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             categoryArray.append(benefit.category!)
             moneyArray.append(benefit.benefit!)
         }
-        
-        print("getFromRealm発動")
-        print(categoryArray)
-        print(moneyArray)
         tableView.reloadData()
         
     }
@@ -146,7 +136,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }else{
             
         }
-        print("消しました")
     }
     
     func toEdit(category: String, year: String, month: String, money: String) {
@@ -167,7 +156,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableViewReload() {
-        print("コロネ")
         getFromRealm()
     }
 
