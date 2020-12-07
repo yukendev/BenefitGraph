@@ -36,7 +36,7 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         yearPickerView.dataSource = self
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 0.5)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
         yearContainer.layer.cornerRadius = 10
         

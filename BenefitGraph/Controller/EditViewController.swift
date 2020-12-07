@@ -32,7 +32,7 @@ class EditViewController: UIViewController {
         editButton.layer.cornerRadius = 5
         
         let bottomLayer = CALayer()
-        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 1.0)
+        bottomLayer.frame = CGRect(x: 0, y: self.view.frame.height * 114/896, width: self.view.frame.width, height: 0.5)
         bottomLayer.backgroundColor = UIColor.gray.cgColor
         
         headerView.layer.addSublayer(bottomLayer)

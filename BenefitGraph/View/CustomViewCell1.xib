@@ -61,6 +61,7 @@
             <connections>
                 <outlet property="cellContainer" destination="Aba-q9-dBk" id="qb6-XD-dfk"/>
                 <outlet property="cellLabel" destination="Ff2-iE-OMk" id="9Gi-X6-coy"/>
+                <outlet property="contentView" destination="H2p-sc-9uM" id="m8o-VM-xnc"/>
                 <outlet property="tableView" destination="0KJ-fw-Zkg" id="Pd7-7F-vJe"/>
                 <outlet property="tableViewHeight" destination="PTt-WF-gbk" id="f8C-bb-l45"/>
             </connections>

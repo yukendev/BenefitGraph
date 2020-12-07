@@ -30,9 +30,10 @@ class CustomViewCell1: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        cellContainer.layer.borderWidth = 1.0
+        cellContainer.layer.borderWidth = 0.5
         cellContainer.layer.borderColor = UIColor.gray.cgColor
         cellContainer.layer.cornerRadius = 3
+        cellContainer.backgroundColor = UIColor.clear
         
         tableView.delegate = self
         tableView.dataSource = self
