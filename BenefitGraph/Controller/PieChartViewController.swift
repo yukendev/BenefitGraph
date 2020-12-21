@@ -8,6 +8,7 @@
 import UIKit
 import Charts
 import RealmSwift
+import GoogleMobileAds
 
 class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -30,6 +31,18 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gadBannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        if self.view.frame.height <= 700 {
+            gadBannerView.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 65)
+        }else{
+            gadBannerView.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 105)
+        }
+        gadBannerView.adUnitID = "ca-app-pub-7065554389714042/5471310181"
+        gadBannerView.rootViewController = self
+        let request = GADRequest()
+        gadBannerView.load(request)
+        self.view.addSubview(gadBannerView)
         
         yearPickerView.delegate = self
         yearPickerView.dataSource = self
@@ -191,6 +204,7 @@ class PieChartViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         
         yearArray = resultArray
+        yearPickerView.reloadAllComponents()
     }
     
     func arrayFilter(array: [String]) -> [String] {

@@ -18,5 +18,6 @@ target 'BenefitGraph' do
 
 pod 'RealmSwift'
 pod 'Charts'
+pod 'Google-Mobile-Ads-SDK'
 
 end
